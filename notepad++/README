@@ -1,4 +1,8 @@
 K/Maude syntax highlighter for Notepad++
 
 To install, open notepad++. Go to: Language (menu) -> Define your language (menu item) -> Import (button).
-Choose the xml file provided (k_langdef_nppp.xml)
+Choose the xml file provided (k_langdef_nppp.xml). Now close the "User Defined Language" dialog.
+Now if you open any .k file, the newly imported syntax highlighting will be applied on it.
+If you have a k file already open in notepad++ while you were doing the import, 
+then the highlighting won't be appplied on it except if you close it and reopen it,
+or go to the language menu and choose K from the list. 
