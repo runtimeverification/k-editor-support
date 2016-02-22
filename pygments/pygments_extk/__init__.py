@@ -1,5 +1,5 @@
 from pygments.lexer import RegexLexer, words, include
-from pygments.token import Text, Comment, Keyword, Name, String, Number, Punctuation
+from pygments.token import Text, Comment, Keyword, Name, String, Number, Punctuation, Operator
 
 __all__ = ["ExtKLexer"]
 
@@ -17,25 +17,36 @@ class ExtKLexer(RegexLexer):
             (r'//.*?\n', Comment.Single),
         ],
         'keywords': [
-            (words(('kmod', 'endkm', 'including', '::=', '|', 'subsort', 'rule', 'eq', 'ceq', 'load'), suffix = r'\b'), Keyword),
+            (words(('kmod', 'endkm', 'including', 'subsort', 'rule', 'eq', 'ceq', 'load'), suffix = r'\b'), Keyword),
             (words(('syntax', 'sort', 'op'), suffix = r'\b'), Keyword.Declaration),
+            (words(('If', 'then', 'else', 'Let', 'Do', "Return"), suffix = r'\b'), Keyword),
         ],
         'literals': [
             (r'"(\\\\|\\"|[^"])*"', String),
         ],
         'identifiers': [
-            (r'[a-zA-Z_][a-zA-Z_0-9]*', Name.Variable),
+            (r'[a-zA-Z_$@%.][a-zA-Z_0-9]*', Name.Variable),
         ],
         'numbers': [
             (r'[+-]?[0-9]+', Number.Integer),
         ],
+        'symbols': [
+            (words(('[', ']', '{', '}', '(', ')')), Punctuation),
+            (words(('BEGIN', 'END')), Keyword),
+            (words((',', ';', ':', ':>', '=>', '::=', '|->')), Punctuation),
+        ],
+        'operators': [
+            (words(('|', '=')), Operator),
+        ],
         'root': [
-            include('whitespace'),
             include('comments'),
+            include('whitespace'),
             include('keywords'),
             include('literals'),
-            include('identifiers'),
             include('numbers'),
+            include('symbols'),
+            include('operators'),
+            include('identifiers'),
         ],
     }
 
