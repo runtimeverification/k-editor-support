@@ -17,15 +17,16 @@ class ExtKLexer(RegexLexer):
             (r'//.*?\n', Comment.Single),
         ],
         'keywords': [
-            (words(('kmod', 'endkm', 'including', 'subsort', 'rule', 'eq', 'ceq', 'load'), suffix = r'\b'), Keyword),
-            (words(('syntax', 'sort', 'op'), suffix = r'\b'), Keyword.Declaration),
+            (words(('kmod', 'endkm', 'including', 'subsort', 'eq', 'ceq', 'load', 'when'), suffix = r'\b'), Keyword),
+            (words(('syntax', 'sort', 'op', 'rule'), suffix = r'\b'), Keyword.Declaration),
             (words(('If', 'then', 'else', 'Let', 'Do', "Return"), suffix = r'\b'), Keyword),
         ],
         'literals': [
             (r'"(\\\\|\\"|[^"])*"', String),
         ],
         'identifiers': [
-            (r'[a-zA-Z_$@%.][a-zA-Z_0-9]*', Name.Variable),
+            (r'[$@%.#]*[a-zA-Z_][a-zA-Z_0-9]*', Name.Variable),
+            (r'</?[$@%.#]*[a-zA-Z_][a-zA-Z_0-9]*>', Name.Tag),
         ],
         'numbers': [
             (r'[+-]?[0-9]+', Number.Integer),
@@ -33,7 +34,7 @@ class ExtKLexer(RegexLexer):
         'symbols': [
             (words(('[', ']', '{', '}', '(', ')')), Punctuation),
             (words(('BEGIN', 'END')), Keyword),
-            (words((',', ';', ':', ':>', '=>', '::=', '|->')), Punctuation),
+            (words((',', ';', ':', ':>', '=>', '::=', '|->', '=/=', '...')), Punctuation),
         ],
         'operators': [
             (words(('|', '=')), Operator),
