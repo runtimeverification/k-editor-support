@@ -1,0 +1,31 @@
+
+* Support for [Pygmentize]
+
+To install, type [sudo easy_install .] in the [pygments] folder.
+
+To use with LaTeX, add the following lines to your LaTeX file (make sure that you compile with the [-shell-escape] option):
+[[
+\usepackage{minted}
+\usepackage{tcolorbox}
+
+\tcbuselibrary{minted}
+
+\makeatletter
+\minted@define@switch{kwrename}{-F kwrenamefilter}
+\makeatother
+
+\newtcblisting{kcode}[1][]{
+    listing engine=minted,
+    minted language=extk,
+    minted options={kwrename,#1}
+}
+]]
+It is then possible to write:
+[[
+\begin{kcode}
+    // Your K code here.
+\end{kcode}
+]]
+
+Note that this lexer is far from being complete.
+
