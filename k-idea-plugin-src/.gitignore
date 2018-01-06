@@ -1,2 +1,6 @@
 gen/
 lib/
+out/
+k-idea-plugin.jar
+.idea/*.xml
+.idea/*/*.xml
