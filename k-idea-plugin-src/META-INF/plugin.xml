@@ -1,7 +1,7 @@
-<idea-plugin version="2" url="https://github.com/kframework/k/blob/master/editor-support/k-idea-plugin-src/README.md">
+<idea-plugin url="https://github.com/kframework/k/blob/master/editor-support/k-idea-plugin-src/README.md">
     <id>ro.uaic.fmse.kplugin</id>
     <name>K Framework Support</name>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <vendor email="denis.bogdanas@gmail.com" url="https://fmse.info.uaic.ro">UAIC</vendor>
 
     <description> </description>
@@ -10,6 +10,7 @@
       <ul>
       <li> v1.1 Added support for references, search and documentation for auxiliary functions, K labels and sorts.</li>
       <li> v1.1.1 Navigation to auxiliary functions / KLabels / Sorts through Ctrl + Alt + Shift + N.</li>
+      <li> v1.1.2 Support for all Intellij products, including PyCharm.</li>
       </ul>
       ]]>
     </change-notes>
@@ -19,11 +20,7 @@
     <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
     <idea-version since-build="133.193"/>
 
-    <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
     <depends>com.intellij.modules.lang</depends>
-    -->
 
     <application-components>
         <!-- Add your application components here -->
@@ -41,7 +38,7 @@
         <!-- Add your extensions here -->
         <fileTypeFactory implementation="ro.uaic.fmse.kplugin.KFileTypeFactory"/>
         <lang.parserDefinition language="K" implementationClass="ro.uaic.fmse.kplugin.KParserDefinition"/>
-        <lang.syntaxHighlighterFactory key="K"
+        <lang.syntaxHighlighterFactory language="K"
                                        implementationClass="ro.uaic.fmse.kplugin.highlighting.KSyntaxHighlighterFactory"/>
         <colorSettingsPage implementation="ro.uaic.fmse.kplugin.highlighting.KColorSettingsPage"/>
         <lang.braceMatcher language="K"
