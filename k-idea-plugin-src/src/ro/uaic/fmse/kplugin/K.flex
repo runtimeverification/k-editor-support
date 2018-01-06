@@ -28,8 +28,8 @@ EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
 DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 
-Identifier = [:jletter:] [:jletterdigit:]*
-Label = "'" [:jletter:] ([:jletterdigit:] | "_" | `. )*
+Identifier = [[:jletter:]\$\#\%] [[:jletterdigit:]\$\#\%]*
+Label = "'" [[:jletter:]\$\#\%] ([[:jletterdigit:]\$\#\%] | "_" | `. )*
 
 DecIntegerLiteral = 0 | [1-9][0-9]*
 
