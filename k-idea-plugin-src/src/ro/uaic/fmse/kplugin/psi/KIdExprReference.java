@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Denis Bogdanas
- *         Created on 12/11/13.
+ * Created on 12/11/13.
  */
 public class KIdExprReference extends PsiReferenceBase.Poly<IKIdExprBase> {
     /*Warning: Using multiple reference targets is not recommended.
-    */
+     */
 
     private String name;
 
@@ -27,9 +27,11 @@ public class KIdExprReference extends PsiReferenceBase.Poly<IKIdExprBase> {
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
         ResolveResult[] result = resolveRuleVar();
-        result = result.length >= 1 ? result : KPsiUtil.resolveAuxFunctions(this, name);
-        if (name.startsWith("is")) {
-            result = result.length >= 1 ? result : KPsiUtil.resolveSyntax(this, name.substring(2));
+        if (result.length == 0) {
+            result = KPsiUtil.resolveAuxFunctions(this, name);
+        }
+        if (result.length == 0 && name.startsWith("is")) {
+            result = KPsiUtil.resolveSyntax(this, name.substring(2));
         }
         return result;
     }

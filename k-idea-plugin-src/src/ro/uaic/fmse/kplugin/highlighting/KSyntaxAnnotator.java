@@ -44,7 +44,8 @@ public class KSyntaxAnnotator implements Annotator {
                 createAnnotation(holder, cellEnd.getTextRange(), KSyntaxHighlighter.CELL);
             }
 
-        } else if (element instanceof KSort) {
+        } else if (element instanceof KDotSort
+                || element instanceof KSort && !(element.getParent() instanceof KDotSort)) {
             createAnnotation(holder, element.getTextRange(), KSyntaxHighlighter.TYPE);
         } else if (element instanceof KColon) {
             createAnnotation(holder, element.getTextRange(), KSyntaxHighlighter.COLON);

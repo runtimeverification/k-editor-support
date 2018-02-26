@@ -18,8 +18,8 @@
 
 kFile ::= require* module*
 
-require ::= "require" string_literal &new_require {pin=1 recoverWhile=not_new_require}
-private new_require ::= "require" | "module"
+require ::= ("requires" | "require") string_literal &new_require {pin=1 recoverWhile=not_new_require}
+private new_require ::= "requires" | "require" | "module"
 private not_new_require ::= !new_require
 
 module ::= "module" item_name imports* module_item* "endmodule" &new_module {pin=1 recoverWhile=not_new_module}
@@ -63,7 +63,7 @@ private balanced_expr ::= expr_no_brackets | "(" balanced_expr* ")"
 
 rule ::= "rule" rule_name? rule_body &new_item {implements="ro.uaic.fmse.kplugin.psi.IModuleItem"} //{pin=1}
 rule_name ::= "[" item_name "]" ":"
-rule_body  ::= (attribute_block_list|expr| "when")+ &new_item
+rule_body  ::= (attribute_block_list|expr| ("when" | "requires"))+ &new_item
                | rule_body_with_open_tags
 rule_body_with_open_tags ::= (attribute_block_list|expr| "when" | cell_start)+ &new_item
 
@@ -80,7 +80,7 @@ id ::= BUILTIN_ID | BUILTIN_FUNC | USER_ID | reusable_keyword
 private reusable_keyword ::= "require" | "imports"
 
 private expr     ::= expr_no_brackets|parenthesis|VERTICAL_BAR|tag_border_in_exp
-private expr_no_brackets  ::= cell|typed_var|id_expr|INTEGER_LITERAL|STRING|OPERATOR|OTHER
+private expr_no_brackets  ::= cell|typed_var|dot_sort|id_expr|INTEGER_LITERAL|STRING|OPERATOR|OTHER
                              |BRACE|",,"|","|"_"|label
 id_expr ::= id {mixin="ro.uaic.fmse.kplugin.psi.impl.KIdExprBase"
                    implements="ro.uaic.fmse.kplugin.psi.IKIdExprBase"}
@@ -91,6 +91,8 @@ var_dec ::= id | "_" {mixin="ro.uaic.fmse.kplugin.psi.impl.KVarDecBase"
 colon ::= ":"
 sort ::= id {mixin="ro.uaic.fmse.kplugin.psi.impl.KSortBase"
              implements="ro.uaic.fmse.kplugin.psi.IKSortBase"}
+
+dot_sort ::= "." sort
 
 cell ::= cell_start expr+ cell_end | "<" id "/>"
 cell_start ::= "<" cell_start_cont

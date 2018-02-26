@@ -28,8 +28,8 @@ EndOfLineComment     = "//" {InputCharacter}* {LineTerminator}
 DocumentationComment = "/**" {CommentContent} "*"+ "/"
 CommentContent       = ( [^*] | \*+ [^/*] )*
 
-Identifier = [[:jletter:]\$\#\%] [[:jletterdigit:]\$\#\%]*
-Label = "'" [[:jletter:]\$\#\%] ([[:jletterdigit:]\$\#\%] | "_" | `. )*
+Identifier = [[:jletter:]\$\#\%@] [[:jletterdigit:]\$\#\%@]*
+Label = "'" [[:jletter:]\$\#\%@] ([[:jletterdigit:]\$\#\%@] | "_" | `. )*
 
 DecIntegerLiteral = 0 | [1-9][0-9]*
 
@@ -40,15 +40,16 @@ String = \"([^\n\r\"\\] | \\t | \\n | \\r | \\\" | \\)*\"
 
 <YYINITIAL> {
 /* keywords */
-  "require"        { return KTypes.KEYWORD; }
-  "module"         { return KTypes.KEYWORD; }
-  "endmodule"      { return KTypes.KEYWORD; }
-  "imports"        { return KTypes.KEYWORD; }
-  "configuration"  { return KTypes.KEYWORD; }
-  "syntax"         { return KTypes.KEYWORD; }
-  "rule"           { return KTypes.KEYWORD; }
-  "when"           { return KTypes.KEYWORD; }
-  "context"        { return KTypes.KEYWORD; }
+    "requires"
+  | "require"
+  | "module"
+  | "endmodule"
+  | "imports"
+  | "configuration"
+  | "syntax"
+  | "rule"
+  | "when"
+  | "context"        { return KTypes.KEYWORD; }
 
   /* reusable builtins */
     "store"
