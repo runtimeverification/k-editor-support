@@ -7,6 +7,7 @@ import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import ro.uaic.fmse.kplugin.KFileType;
+import ro.uaic.fmse.kplugin.parsing.KSyntaxRhsRegularStubElementType;
 import ro.uaic.fmse.kplugin.parsing.KSyntaxStubElementType;
 import ro.uaic.fmse.kplugin.psi.impl.KIdExprBase;
 
@@ -19,6 +20,8 @@ public class KElementFactory {
     public static IElementType createElementType(String str) {
         if (str.equals("SYNTAX")) {
             return new KSyntaxStubElementType(str);
+        } else if (str.equals("SYNTAX_RHS_REGULAR")) {
+            return new KSyntaxRhsRegularStubElementType(str);
         }
         return new KElementType(str);
     }

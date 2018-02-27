@@ -3,7 +3,7 @@ package ro.uaic.fmse.kplugin.psi.impl;
 import com.intellij.psi.stubs.IStubElementType;
 import com.intellij.psi.stubs.StubBase;
 import com.intellij.psi.stubs.StubElement;
-import ro.uaic.fmse.kplugin.psi.IKSyntaxStub;
+import ro.uaic.fmse.kplugin.psi.KSyntaxStub;
 import ro.uaic.fmse.kplugin.psi.KSyntax;
 import ro.uaic.fmse.kplugin.psi.KTypes;
 
@@ -11,7 +11,7 @@ import ro.uaic.fmse.kplugin.psi.KTypes;
  * @author Denis Bogdanas
  * Created on 26-Feb-18.
  */
-public class KSyntaxStubImpl extends StubBase<KSyntax> implements IKSyntaxStub {
+public class KSyntaxStubImpl extends StubBase<KSyntax> implements KSyntaxStub {
 
     private String kSort;
 

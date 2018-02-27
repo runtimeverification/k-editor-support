@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
  * @author Denis Bogdanas
  * Created on 12/15/13.
  */
-public interface IKSyntaxBase extends PsiNamedElement, StubBasedPsiElement<IKSyntaxStub>, IModuleItem {
+public interface IKSyntaxBase extends PsiNamedElement, StubBasedPsiElement<KSyntaxStub>, IModuleItem {
 
     @Nullable
     TextRange getNameRangeInElement();

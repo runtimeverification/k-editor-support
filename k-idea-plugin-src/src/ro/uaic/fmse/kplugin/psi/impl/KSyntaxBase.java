@@ -18,19 +18,19 @@ import ro.uaic.fmse.kplugin.psi.*;
  * Created on 12/15/13.
  */
 @SuppressWarnings("WeakerAccess")
-public class KSyntaxBase extends StubBasedPsiElementBase<IKSyntaxStub> implements IKSyntaxBase {
+public class KSyntaxBase extends StubBasedPsiElementBase<KSyntaxStub> implements IKSyntaxBase {
     public KSyntaxBase(@NotNull ASTNode node) {
         super(node);
     }
 
-    public KSyntaxBase(final IKSyntaxStub stub, final IStubElementType nodeType) {
+    public KSyntaxBase(final KSyntaxStub stub, final IStubElementType nodeType) {
         super(stub, nodeType);
     }
 
     @Nullable
     @Override
     public String getName() {
-        final IKSyntaxStub stub = getStub();
+        final KSyntaxStub stub = getStub();
         if (stub != null) {
             return stub.getSort();
         }

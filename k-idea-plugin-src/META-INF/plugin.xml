@@ -41,6 +41,7 @@
         <lang.parserDefinition language="K" implementationClass="ro.uaic.fmse.kplugin.KParserDefinition"/>
         <stubElementTypeHolder class="ro.uaic.fmse.kplugin.psi.KTypes"/>
         <stubIndex implementation="ro.uaic.fmse.kplugin.psi.KSyntaxSortIndex"/>
+        <stubIndex implementation="ro.uaic.fmse.kplugin.psi.KSyntaxRhsRegularIndex"/>
 
         <lang.syntaxHighlighterFactory language="K"
                                        implementationClass="ro.uaic.fmse.kplugin.highlighting.KSyntaxHighlighterFactory"/>

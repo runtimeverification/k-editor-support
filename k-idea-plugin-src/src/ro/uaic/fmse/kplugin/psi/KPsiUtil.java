@@ -167,6 +167,13 @@ public class KPsiUtil {
 
     @NotNull
     public static ResolveResult[] resolveAuxFunctions(PsiReference psiReference, String name) {
+        Project project = psiReference.getElement().getProject();
+        Collection<KSyntaxRhsRegular> kSyntaxRhsList =
+                KSyntaxRhsRegularIndex.INSTANCE.get(name, project, GlobalSearchScope.allScope(project));
+        if (!kSyntaxRhsList.isEmpty()) {
+            return kSyntaxRhsList.stream().map(PsiElementResolveResult::new).toArray(ResolveResult[]::new);
+        }
+
         KRegularProduction syntaxDef = findFirstElementInModule((KFile) psiReference.getElement().getContainingFile(),
                 KRegularProduction.class, name);
         return syntaxDef != null ? new ResolveResult[]{new PsiElementResolveResult(syntaxDef)} : new ResolveResult[0];
@@ -194,11 +201,6 @@ public class KPsiUtil {
         Collection<KSyntax> kSyntaxes =
                 KSyntaxSortIndex.INSTANCE.get(sort, project, GlobalSearchScope.allScope(project));
         return kSyntaxes.stream().map(PsiElementResolveResult::new).toArray(ResolveResult[]::new);
-
-
-        /*KSyntax syntax = findFirstElementInModule((KFile) psiReference.getElement().getContainingFile(), KSyntax.class,
-                sort);
-        return syntax != null ? new ResolveResult[]{new PsiElementResolveResult(syntax)} : new ResolveResult[0];*/
     }
 
     @NotNull

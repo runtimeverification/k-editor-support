@@ -1,33 +1,42 @@
 // Copyright (c) 2013-2014 K Team. All Rights Reserved.
 package ro.uaic.fmse.kplugin.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.intellij.extapi.psi.StubBasedPsiElementBase;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
+import com.intellij.psi.stubs.IStubElementType;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import ro.uaic.fmse.kplugin.psi.KElementFactory;
-import ro.uaic.fmse.kplugin.psi.KRegularProduction;
-import ro.uaic.fmse.kplugin.psi.KRegularProductionReference;
-import ro.uaic.fmse.kplugin.psi.KTypes;
+import ro.uaic.fmse.kplugin.psi.*;
 
 /**
  * @author Denis Bogdanas
- *         Created on 12/15/13.
+ * Created on 12/15/13.
  */
-public class PsiKSyntaxRhsRegularBase extends ASTWrapperPsiElement implements KRegularProduction {
+public class PsiKSyntaxRhsRegularBase extends StubBasedPsiElementBase<KSyntaxRhsRegularStub>
+        implements KRegularProduction {
+
     public PsiKSyntaxRhsRegularBase(@NotNull ASTNode node) {
         super(node);
+    }
+
+    public PsiKSyntaxRhsRegularBase(final KSyntaxRhsRegularStub stub, final IStubElementType nodeType) {
+        super(stub, nodeType);
     }
 
     @Nullable
     @Override
     public String getName() {
+        final KSyntaxRhsRegularStub stub = getStub();
+        if (stub != null) {
+            return stub.getName();
+        }
+
         PsiElement firstChild = getFirstChild();
         if (KTypes.STRING.equals(firstChild.getNode().getElementType())) {
             String text = firstChild.getText();
