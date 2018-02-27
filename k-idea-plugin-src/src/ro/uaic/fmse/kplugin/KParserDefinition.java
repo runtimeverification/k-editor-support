@@ -13,6 +13,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.TokenType;
 import com.intellij.psi.tree.IFileElementType;
+import com.intellij.psi.tree.IStubFileElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import ro.uaic.fmse.kplugin.parser.KParser;
@@ -26,7 +27,8 @@ public class KParserDefinition implements ParserDefinition {
     public static final TokenSet COMMENTS = TokenSet.create(KTypes.COMMENT);
     public static final TokenSet STRING_LITERALS = TokenSet.create(KTypes.STRING);
 
-    public static final IFileElementType FILE = new IFileElementType(Language.<KLanguage>findInstance(KLanguage.class));
+    public static final IFileElementType FILE =
+            new IStubFileElementType("K.FILE", Language.findInstance(KLanguage.class));
 
     @NotNull
     @Override

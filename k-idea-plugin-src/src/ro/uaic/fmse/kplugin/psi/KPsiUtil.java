@@ -21,7 +21,7 @@ import java.util.*;
 
 /**
  * @author Denis Bogdanas
- *         Created on 12/11/13.
+ * Created on 12/11/13.
  */
 public class KPsiUtil {
 
@@ -190,9 +190,15 @@ public class KPsiUtil {
     }
 
     public static ResolveResult[] resolveSyntax(PsiReference psiReference, String sort) {
-        KSyntax syntax = findFirstElementInModule((KFile) psiReference.getElement().getContainingFile(), KSyntax.class,
+        Project project = psiReference.getElement().getProject();
+        Collection<KSyntax> kSyntaxes =
+                KSyntaxSortIndex.INSTANCE.get(sort, project, GlobalSearchScope.allScope(project));
+        return kSyntaxes.stream().map(PsiElementResolveResult::new).toArray(ResolveResult[]::new);
+
+
+        /*KSyntax syntax = findFirstElementInModule((KFile) psiReference.getElement().getContainingFile(), KSyntax.class,
                 sort);
-        return syntax != null ? new ResolveResult[]{new PsiElementResolveResult(syntax)} : new ResolveResult[0];
+        return syntax != null ? new ResolveResult[]{new PsiElementResolveResult(syntax)} : new ResolveResult[0];*/
     }
 
     @NotNull
