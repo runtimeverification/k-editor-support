@@ -1,12 +1,13 @@
 // Copyright (c) 2013-2014 K Team. All Rights Reserved.
 package ro.uaic.fmse.kplugin.psi.impl;
 
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import com.intellij.extapi.psi.StubBasedPsiElementBase;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
+import com.intellij.psi.stubs.IStubElementType;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
@@ -15,16 +16,27 @@ import ro.uaic.fmse.kplugin.psi.*;
 
 /**
  * @author Denis Bogdanas
- *         Created on 12/15/13.
+ * Created on 12/15/13.
  */
-public class PsiKSyntaxRhsAuxFunctionBase extends ASTWrapperPsiElement implements KRegularProduction {
+public class PsiKSyntaxRhsAuxFunctionBase extends StubBasedPsiElementBase<KRegularProductionStub>
+        implements KRegularProduction {
+
     public PsiKSyntaxRhsAuxFunctionBase(@NotNull ASTNode node) {
         super(node);
+    }
+
+    public PsiKSyntaxRhsAuxFunctionBase(final KRegularProductionStub stub, final IStubElementType nodeType) {
+        super(stub, nodeType);
     }
 
     @Nullable
     @Override
     public String getName() {
+        final KRegularProductionStub stub = getStub();
+        if (stub != null) {
+            return stub.getName();
+        }
+
         KId id = ((KSyntaxRhsAuxFunction) this).getId();
         return id != null ? id.getText() : null;
     }

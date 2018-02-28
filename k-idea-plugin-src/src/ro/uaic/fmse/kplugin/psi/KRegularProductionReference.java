@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Denis Bogdanas
- *         Created on 12/11/13.
- *         Altouugh this class is Poly, actually this reference resolves to just one target.
+ * Created on 12/11/13.
+ * Altouugh this class is Poly, actually this reference resolves to just one target.
  */
 public class KRegularProductionReference extends PsiReferenceBase.Poly<KRegularProduction> {
 
@@ -25,7 +25,7 @@ public class KRegularProductionReference extends PsiReferenceBase.Poly<KRegularP
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
-        return KPsiUtil.resolveAuxFunctions(this, name);
+        return KPsiUtil.resolveRegularProduction(this, name);
     }
 
     @NotNull

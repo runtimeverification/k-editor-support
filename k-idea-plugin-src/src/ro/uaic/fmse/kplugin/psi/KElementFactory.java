@@ -20,7 +20,7 @@ public class KElementFactory {
     public static IElementType createElementType(String str) {
         if (str.equals("SYNTAX")) {
             return new KSyntaxStubElementType(str);
-        } else if (str.equals("SYNTAX_RHS_REGULAR")) {
+        } else if (str.equals("SYNTAX_RHS_REGULAR") || str.equals("SYNTAX_RHS_AUX_FUNCTION")) {
             return new KSyntaxRhsRegularStubElementType(str);
         }
         return new KElementType(str);

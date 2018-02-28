@@ -18,21 +18,21 @@ import ro.uaic.fmse.kplugin.psi.*;
  * @author Denis Bogdanas
  * Created on 12/15/13.
  */
-public class PsiKSyntaxRhsRegularBase extends StubBasedPsiElementBase<KSyntaxRhsRegularStub>
+public class PsiKSyntaxRhsRegularBase extends StubBasedPsiElementBase<KRegularProductionStub>
         implements KRegularProduction {
 
     public PsiKSyntaxRhsRegularBase(@NotNull ASTNode node) {
         super(node);
     }
 
-    public PsiKSyntaxRhsRegularBase(final KSyntaxRhsRegularStub stub, final IStubElementType nodeType) {
+    public PsiKSyntaxRhsRegularBase(final KRegularProductionStub stub, final IStubElementType nodeType) {
         super(stub, nodeType);
     }
 
     @Nullable
     @Override
     public String getName() {
-        final KSyntaxRhsRegularStub stub = getStub();
+        final KRegularProductionStub stub = getStub();
         if (stub != null) {
             return stub.getName();
         }

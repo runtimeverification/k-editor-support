@@ -4,15 +4,14 @@ import com.intellij.lang.LighterAST;
 import com.intellij.lang.LighterASTNode;
 import com.intellij.psi.impl.source.tree.LightTreeUtil;
 import com.intellij.psi.stubs.*;
+import com.intellij.psi.tree.IElementType;
 import com.intellij.util.io.StringRef;
 import org.jetbrains.annotations.NotNull;
 import ro.uaic.fmse.kplugin.KLanguage;
-import ro.uaic.fmse.kplugin.psi.KSyntaxRhsRegular;
-import ro.uaic.fmse.kplugin.psi.KSyntaxRhsRegularIndex;
-import ro.uaic.fmse.kplugin.psi.KSyntaxRhsRegularStub;
-import ro.uaic.fmse.kplugin.psi.KTypes;
+import ro.uaic.fmse.kplugin.psi.*;
+import ro.uaic.fmse.kplugin.psi.impl.KSyntaxRhsAuxFunctionImpl;
 import ro.uaic.fmse.kplugin.psi.impl.KSyntaxRhsRegularImpl;
-import ro.uaic.fmse.kplugin.psi.impl.KSyntaxRhsRegularStubImpl;
+import ro.uaic.fmse.kplugin.psi.impl.KRegularProductionStubImpl;
 
 import java.io.IOException;
 
@@ -20,29 +19,40 @@ import java.io.IOException;
  * @author Denis Bogdanas
  * Created on 27-Feb-18.
  */
-public class KSyntaxRhsRegularStubElementType extends ILightStubElementType<KSyntaxRhsRegularStub, KSyntaxRhsRegular> {
+public class KSyntaxRhsRegularStubElementType extends ILightStubElementType<KRegularProductionStub, KRegularProduction> {
 
     public KSyntaxRhsRegularStubElementType(@NotNull String debugName) {
         super(debugName, KLanguage.INSTANCE);
     }
 
     @Override
-    public KSyntaxRhsRegularStub createStub(LighterAST tree, LighterASTNode node, StubElement parentStub) {
-        LighterASTNode nameNode = LightTreeUtil.firstChildOfType(tree, node, KTypes.STRING);
+    public KRegularProductionStub createStub(LighterAST tree, LighterASTNode node, StubElement parentStub) {
+        IElementType nameChildType;
+        boolean auxFunction;
+        if (node.getTokenType() == KTypes.SYNTAX_RHS_AUX_FUNCTION) {
+            nameChildType = KTypes.ID;
+            auxFunction = true;
+        } else {
+            nameChildType = KTypes.STRING;
+            auxFunction = false;
+        }
+        LighterASTNode nameNode = LightTreeUtil.firstChildOfType(tree, node, nameChildType);
         String name = nameNode != null && nameNode.getStartOffset() == node.getStartOffset()
                 ? KSyntaxStubElementType.intern(tree.getCharTable(), nameNode) : null;
-        return new KSyntaxRhsRegularStubImpl(parentStub, name);
+        return new KRegularProductionStubImpl(parentStub, name, auxFunction);
     }
 
     @Override
-    public KSyntaxRhsRegular createPsi(@NotNull KSyntaxRhsRegularStub stub) {
-        return new KSyntaxRhsRegularImpl(stub, this);
+    public KRegularProduction createPsi(@NotNull KRegularProductionStub stub) {
+        return stub.isAuxFunction()
+                ? new KSyntaxRhsAuxFunctionImpl(stub, (IStubElementType) KTypes.SYNTAX_RHS_AUX_FUNCTION)
+                : new KSyntaxRhsRegularImpl(stub, (IStubElementType) KTypes.SYNTAX_RHS_REGULAR);
     }
 
     @NotNull
     @Override
-    public KSyntaxRhsRegularStub createStub(@NotNull KSyntaxRhsRegular psi, StubElement parentStub) {
-        return new KSyntaxRhsRegularStubImpl(parentStub, psi.getName());
+    public KRegularProductionStub createStub(@NotNull KRegularProduction psi, StubElement parentStub) {
+        return new KRegularProductionStubImpl(parentStub, psi.getName(), psi instanceof KSyntaxRhsAuxFunction);
     }
 
     @NotNull
@@ -52,24 +62,26 @@ public class KSyntaxRhsRegularStubElementType extends ILightStubElementType<KSyn
     }
 
     @Override
-    public void serialize(@NotNull KSyntaxRhsRegularStub stub, @NotNull StubOutputStream dataStream)
+    public void serialize(@NotNull KRegularProductionStub stub, @NotNull StubOutputStream dataStream)
             throws IOException {
         dataStream.writeName(stub.getName());
+        dataStream.writeBoolean(stub.isAuxFunction());
     }
 
     @NotNull
     @Override
-    public KSyntaxRhsRegularStub deserialize(@NotNull StubInputStream dataStream, StubElement parentStub)
+    public KRegularProductionStub deserialize(@NotNull StubInputStream dataStream, StubElement parentStub)
             throws IOException {
         final StringRef ref = dataStream.readName();
+        boolean auxFunction = dataStream.readBoolean();
         String name = ref != null ? ref.getString() : null;
-        return new KSyntaxRhsRegularStubImpl(parentStub, name);
+        return new KRegularProductionStubImpl(parentStub, name, auxFunction);
     }
 
     @Override
-    public void indexStub(@NotNull KSyntaxRhsRegularStub stub, @NotNull IndexSink sink) {
+    public void indexStub(@NotNull KRegularProductionStub stub, @NotNull IndexSink sink) {
         if (stub.getName() != null) {
-            sink.occurrence(KSyntaxRhsRegularIndex.KEY, stub.getName());
+            sink.occurrence(KRegularProductionIndex.KEY, stub.getName());
         }
     }
 }

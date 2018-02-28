@@ -61,7 +61,8 @@ public class KSyntaxBase extends StubBasedPsiElementBase<KSyntaxStub> implements
     @Override
     public TextRange getNameRangeInElement() {
         KSort sort = ((KSyntax) this).getSort();
-        return new TextRange(sort.getStartOffsetInParent(), sort.getTextLength());
+        int startOffsetInParent = sort.getStartOffsetInParent();
+        return new TextRange(startOffsetInParent, startOffsetInParent + sort.getTextLength());
     }
 
     @Override

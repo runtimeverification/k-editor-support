@@ -6,6 +6,8 @@ import com.intellij.psi.stubs.StubElement;
  * @author Denis Bogdanas
  * Created on 27-Feb-18.
  */
-public interface KSyntaxRhsRegularStub extends StubElement<KSyntaxRhsRegular> {
+public interface KRegularProductionStub extends StubElement<KRegularProduction> {
     String getName();
+
+    boolean isAuxFunction();
 }

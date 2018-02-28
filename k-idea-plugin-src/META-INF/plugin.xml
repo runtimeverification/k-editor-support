@@ -12,6 +12,7 @@
       <li> v1.1.1 Navigation to auxiliary functions / KLabels / Sorts through Ctrl + Alt + Shift + N.</li>
       <li> v1.1.2 Support for all Intellij products, including PyCharm.</li>
       <li> v1.1.3 Support for @ character in labels. Support for .Sort construct for syntactic lists. </li>
+      <li> v1.2.0 Highlighting/navigation performance improvement by using stub indexes. </li>
       </ul>
       ]]>
     </change-notes>
@@ -41,7 +42,7 @@
         <lang.parserDefinition language="K" implementationClass="ro.uaic.fmse.kplugin.KParserDefinition"/>
         <stubElementTypeHolder class="ro.uaic.fmse.kplugin.psi.KTypes"/>
         <stubIndex implementation="ro.uaic.fmse.kplugin.psi.KSyntaxSortIndex"/>
-        <stubIndex implementation="ro.uaic.fmse.kplugin.psi.KSyntaxRhsRegularIndex"/>
+        <stubIndex implementation="ro.uaic.fmse.kplugin.psi.KRegularProductionIndex"/>
 
         <lang.syntaxHighlighterFactory language="K"
                                        implementationClass="ro.uaic.fmse.kplugin.highlighting.KSyntaxHighlighterFactory"/>
