@@ -18,6 +18,7 @@ import org.jetbrains.annotations.Nullable;
 import ro.uaic.fmse.kplugin.KFileType;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Denis Bogdanas
@@ -25,13 +26,20 @@ import java.util.*;
  */
 public class KPsiUtil {
 
-    @NotNull
-    public static List<KVarDec> findVarDecsInSameRule(PsiElement element, String name) {
+    /**
+     * The target of a local variable reference is preferably the first typed variable declaration.
+     * If there are no var decs but at least 2 references to the name, the first one will be the var dec.
+     */
+    @Nullable
+    public static PsiNamedElement findGeneralizedVarDecInSameRule(PsiElement element, String name) {
         KRule rule = getRule(element);
         if (rule != null) {
-            return findVarDecs(name, rule);
+            @SuppressWarnings("unchecked")
+            List<PsiNamedElement> elements = findElementsInRule(rule, name, KVarDec.class, KIdExpr.class);
+            return elements.stream().filter(e -> e instanceof KVarDec).findFirst()
+                    .orElse(elements.size() >= 2 ? elements.get(0) : null);
         } else {
-            return Collections.emptyList();
+            return null;
         }
     }
 
@@ -43,17 +51,12 @@ public class KPsiUtil {
         return (element instanceof KRule) ? (KRule) element : null;
     }
 
+    @SafeVarargs
     @NotNull
-    private static List<KVarDec> findVarDecs(String name, KRule rule) {
-        List<KVarDec> result = new ArrayList<>();
-        @SuppressWarnings("unchecked")
-        Collection<KVarDec> typedVars = PsiTreeUtil.collectElementsOfType(rule.getRuleBody(), KVarDec.class);
-        for (KVarDec varDec : typedVars) {
-            if (varDec.getId() != null && name.equals(varDec.getId().getText())) {
-                result.add(varDec);
-            }
-        }
-        return result;
+    private static List<PsiNamedElement> findElementsInRule(KRule rule, String name,
+                                                            Class<? extends PsiNamedElement>... elemClasses) {
+        return PsiTreeUtil.findChildrenOfAnyType(rule.getRuleBody(), elemClasses).stream()
+                .filter(elem -> name.equals(elem.getName())).collect(Collectors.toList());
     }
 
     public static List<PsiNamedElement> findSearchableSymbols(Project project, String name) {
@@ -195,15 +198,6 @@ public class KPsiUtil {
         Collection<KSyntax> kSyntaxes =
                 KSyntaxSortIndex.INSTANCE.get(sort, project, GlobalSearchScope.allScope(project));
         return kSyntaxes.stream().map(PsiElementResolveResult::new).toArray(ResolveResult[]::new);
-    }
-
-    @NotNull
-    public static ResolveResult[] resolveRuleVar(PsiReference psiReference, String name) {
-        //The target of a local variable reference is the first typed variable declaration.
-        final List<KVarDec> varDecs = findVarDecsInSameRule(psiReference.getElement(), name);
-        return varDecs.size() >= 1
-                ? new ResolveResult[]{new PsiElementResolveResult(varDecs.get(0))}
-                : new ResolveResult[0];
     }
 
     @NotNull

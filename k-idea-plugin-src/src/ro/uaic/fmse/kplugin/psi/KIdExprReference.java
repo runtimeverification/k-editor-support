@@ -2,9 +2,7 @@
 package ro.uaic.fmse.kplugin.psi;
 
 import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReferenceBase;
-import com.intellij.psi.ResolveResult;
+import com.intellij.psi.*;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 
@@ -31,14 +29,12 @@ public class KIdExprReference extends PsiReferenceBase.Poly<IKIdExprBase> {
             result = KPsiUtil.resolveSyntax(this, name.substring(2));
         }
         if (result.length == 0) {
-            result = resolveRuleVar();
+            PsiNamedElement varDecRes =
+                    KPsiUtil.findGeneralizedVarDecInSameRule(((PsiReference) this).getElement(), name);
+            result = varDecRes != null ? new ResolveResult[]{new PsiElementResolveResult(varDecRes)} :
+                    new ResolveResult[0];
         }
         return result;
-    }
-
-    @NotNull
-    public ResolveResult[] resolveRuleVar() {
-        return KPsiUtil.resolveRuleVar(this, name);
     }
 
     @NotNull

@@ -13,7 +13,7 @@ import ro.uaic.fmse.kplugin.psi.KVarDecReference;
 
 /**
  * @author Denis Bogdanas
- *         Created on 12/11/13.
+ * Created on 12/11/13.
  */
 public abstract class KVarDecBase extends ASTWrapperPsiElement implements IKVarDecBase {
     public KVarDecBase(@NotNull ASTNode node) {
@@ -21,7 +21,8 @@ public abstract class KVarDecBase extends ASTWrapperPsiElement implements IKVarD
     }
 
     public String getName() {
-        return this.getText();
+        PsiElement id = getNameIdentifier();
+        return id != null ? id.getText() : null;
     }
 
     public PsiElement setName(@NotNull String newName) {

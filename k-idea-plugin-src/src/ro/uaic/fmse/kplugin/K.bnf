@@ -88,10 +88,10 @@ private expr_no_brackets  ::= cell|typed_var|dot_sort|id_expr|INTEGER_LITERAL|ST
 id_expr ::= id {mixin="ro.uaic.fmse.kplugin.psi.impl.KIdExprBase"
                    implements="ro.uaic.fmse.kplugin.psi.IKIdExprBase"}
 
-typed_var ::= var_dec colon sort
 var_dec ::= id | "_" {mixin="ro.uaic.fmse.kplugin.psi.impl.KVarDecBase"
                       implements="ro.uaic.fmse.kplugin.psi.IKVarDecBase"}
-colon ::= ":"
+typed_var ::= var_dec ":" sort
+
 sort ::= id {mixin="ro.uaic.fmse.kplugin.psi.impl.KSortBase"
              implements="ro.uaic.fmse.kplugin.psi.IKSortBase"}
 

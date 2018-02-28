@@ -59,7 +59,7 @@ public class KSyntaxAnnotator implements Annotator {
             @SuppressWarnings("ConstantConditions")
             ResolveResult[] resolveResults = ((PsiPolyVariantReference) element.getReference()).multiResolve(false);
             PsiElement refTarget = resolveResults.length > 0 ? resolveResults[0].getElement() : null;
-            if (refTarget instanceof KVarDec) {
+            if (refTarget instanceof KVarDec || refTarget instanceof KIdExpr) {
                 createAnnotation(holder, element.getTextRange(), KSyntaxHighlighter.VAR);
             } else if (refTarget instanceof KRegularProduction) {
                 createAnnotation(holder, element.getTextRange(), KSyntaxHighlighter.FUNCTION_CALL);
