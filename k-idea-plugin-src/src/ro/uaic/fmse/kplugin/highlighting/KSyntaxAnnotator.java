@@ -8,6 +8,7 @@ import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiErrorElement;
+import com.intellij.psi.PsiPolyVariantReference;
 import com.intellij.psi.ResolveResult;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
@@ -56,11 +57,14 @@ public class KSyntaxAnnotator implements Annotator {
         } else if (element instanceof KIdExpr) {
             //highlight variable references
             @SuppressWarnings("ConstantConditions")
-            ResolveResult[] resolveResults = ((KIdExprReference) element.getReference()).resolveRuleVar();
-            if (resolveResults.length >= 1) {
+            ResolveResult[] resolveResults = ((PsiPolyVariantReference) element.getReference()).multiResolve(false);
+            PsiElement refTarget = resolveResults.length > 0 ? resolveResults[0].getElement() : null;
+            if (refTarget instanceof KVarDec) {
                 createAnnotation(holder, element.getTextRange(), KSyntaxHighlighter.VAR);
-            } else {
+            } else if (refTarget instanceof KRegularProduction) {
                 createAnnotation(holder, element.getTextRange(), KSyntaxHighlighter.FUNCTION_CALL);
+            } else if (refTarget instanceof KSyntax) {
+                createAnnotation(holder, element.getTextRange(), KSyntaxHighlighter.TYPE);
             }
         } else if (element instanceof KSyntaxRhsAuxFunction) {
             KId id = ((KSyntaxRhsAuxFunction) element).getId();
