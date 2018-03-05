@@ -1,3 +1,5 @@
+![](K-idea-plugin-screenshot.png)
+
 ## Installation
 
 Requirements:
