@@ -30,6 +30,8 @@ CommentContent       = ( [^*] | \*+ [^/*] )*
 
 Identifier = [[:jletter:]\$\#\%@] [[:jletterdigit:]\$\#\%@]*
 Label = "'" [[:jletter:]\$\#\%@] ([[:jletterdigit:]\$\#\%@] | "_" | `. )*
+CellStart = "<" [[:jletter:]\$\#\%@] ([[:jletterdigit:]\$\#\%@] | "_" | "-" | `. )* ">"
+CellEnd  = "</" [[:jletter:]\$\#\%@] ([[:jletterdigit:]\$\#\%@] | "_" | "-" | `. )* ">"
 
 DecIntegerLiteral = 0 | [1-9][0-9]*
 
@@ -224,6 +226,8 @@ String = \"([^\n\r\"\\] | \\t | \\n | \\r | \\\" | \\)*\"
   "_"                     {return KTypes.UNDERSCORE;}
 
   {Label}                        { return KTypes.LABEL_TOK; }
+  {CellStart}                    { return KTypes.CELL_START_TOK; }
+  {CellEnd}                      { return KTypes.CELL_END_TOK; }
 
   /* identifiers */
   {Identifier}                   { return KTypes.USER_ID; }

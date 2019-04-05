@@ -1,10 +1,8 @@
 <idea-plugin url="https://github.com/kframework/k/blob/master/editor-support/k-idea-plugin-src/README.md">
     <id>ro.uaic.fmse.kplugin</id>
     <name>K Framework Support</name>
-    <version>1.1.3</version>
+    <version>1.2.1</version>
     <vendor email="denis.bogdanas@gmail.com" url="https://fmse.info.uaic.ro">UAIC</vendor>
-
-    <description></description>
 
     <change-notes><![CDATA[
       <ul>
@@ -14,6 +12,7 @@
       <li> v1.1.3 Support for @ character in labels. Support for .Sort construct for syntactic lists. </li>
       <li> v1.2.0 Highlighting/navigation performance improvement by using stub indexes.
                   Improved highlighting for rule vars.</li>
+      <li> v1.2.1 Re-built for Intellij 2019. Syntax slightly extended.</li>
       </ul>
       ]]>
     </change-notes>

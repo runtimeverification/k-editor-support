@@ -23,11 +23,12 @@ require ::= ("requires" | "require") string_literal &new_require {pin=1 recoverW
 private new_require ::= "requires" | "require" | "module"
 private not_new_require ::= !new_require
 
-module ::= "module" item_name imports* module_item* "endmodule" &new_module {pin=1 recoverWhile=not_new_module}
+module ::= "module" item_name attribute_block* imports* module_item* "endmodule" &new_module
+                {pin=1 recoverWhile=not_new_module}
 private new_module ::= "module" | <<eof>>
 private not_new_module ::= !new_module
 
-imports ::= "imports" item_name &new_imports {pin=1 recoverWhile=not_new_imports}
+imports ::= "imports" "syntax"? item_name &new_imports {pin=1 recoverWhile=not_new_imports}
 private new_imports ::= "imports" | new_item
 private not_new_imports ::= !new_imports
 
@@ -39,7 +40,9 @@ private not_new_item ::= !new_item
 
 configuration ::= "configuration" cell+ &new_item {implements="ro.uaic.fmse.kplugin.psi.IModuleItem"} //{pin=1}
 
-syntax ::= "syntax" sort "::=" production_attr? syntax_rhs (production_sep production_attr? syntax_rhs)* &new_item
+syntax ::= "syntax" sort ( ("::=" production_attr? syntax_rhs (production_sep production_attr? syntax_rhs)* )
+                         | attribute_block_list
+                         | () ) &new_item
              {mixin="ro.uaic.fmse.kplugin.psi.impl.KSyntaxBase"
               implements="ro.uaic.fmse.kplugin.psi.IKSyntaxBase"} //{pin=1}
 production_sep ::= "|" | ">"
@@ -49,9 +52,11 @@ private syntax_rhs ::= syntax_rhs_aux_function | syntax_rhs_list | syntax_rhs_to
 syntax_rhs_regular ::= (attribute_block_list | sort | STRING)+ &(production_sep | new_item_strict)
                             {mixin = "ro.uaic.fmse.kplugin.psi.impl.PsiKSyntaxRhsRegularBase"
                              implements="ro.uaic.fmse.kplugin.psi.KRegularProduction"}
-syntax_rhs_aux_function ::= id "(" sort? ("," sort)* ")" attribute_block_list?
+syntax_rhs_aux_function ::= (id|OPERATOR) "(" aux_func_arg? ("," aux_func_arg)* ")" attribute_block_list?
                             {mixin = "ro.uaic.fmse.kplugin.psi.impl.PsiKSyntaxRhsAuxFunctionBase"
                              implements="ro.uaic.fmse.kplugin.psi.KRegularProduction"}
+aux_func_arg ::= id ":" sort //in builtins
+               | sort
 syntax_rhs_list ::= "List" "{" sort "," STRING "}" attribute_block_list?
 syntax_rhs_token ::= "Token" "{" token_elem* "}" attribute_block_list?
 private token_elem ::= INTEGER_LITERAL|STRING|OPERATOR|OTHER|id|",,"|","|"_"|label
@@ -82,9 +87,9 @@ item_name ::= id ("-" id)*
 id ::= BUILTIN_ID | BUILTIN_FUNC | USER_ID | reusable_keyword
 private reusable_keyword ::= "require" | "imports"
 
-private expr     ::= expr_no_brackets|parenthesis|VERTICAL_BAR|tag_border_in_exp
-private expr_no_brackets  ::= cell|typed_var|dot_sort|id_expr|INTEGER_LITERAL|STRING|OPERATOR|OTHER
-                             |BRACE|",,"|","|"_"|label
+private expr     ::= expr_no_brackets|parenthesis
+private expr_no_brackets  ::= cell|typed_var|dot_sort|id_expr|INTEGER_LITERAL|STRING|OPERATOR|OTHER|VERTICAL_BAR
+                             |BRACE|",,"|","|"_"|label|tag_border_in_exp
 id_expr ::= id {mixin="ro.uaic.fmse.kplugin.psi.impl.KIdExprBase"
                    implements="ro.uaic.fmse.kplugin.psi.IKIdExprBase"}
 
@@ -98,9 +103,9 @@ sort ::= id {mixin="ro.uaic.fmse.kplugin.psi.impl.KSortBase"
 dot_sort ::= "." sort
 
 cell ::= cell_start expr+ cell_end | "<" id "/>"
-cell_start ::= "<" cell_start_cont
-private cell_start_cont ::= id (id "=" STRING)* ">"
-cell_end ::= "</" cell_end_cont
+cell_start ::= CELL_START_TOK | "<" cell_start_cont
+private cell_start_cont ::= item_name (id "=" STRING)+ ">"
+cell_end ::= CELL_END_TOK
 private cell_end_cont ::= id ">"
 
 private tag_border_in_exp ::= (("<" !cell_start_cont) | ("</" !cell_end_cont) | ">" | "/>")
