@@ -1,7 +1,7 @@
 <idea-plugin url="https://github.com/kframework/k/blob/master/editor-support/k-idea-plugin-src/README.md">
     <id>ro.uaic.fmse.kplugin</id>
     <name>K Framework Support</name>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <vendor email="denis.bogdanas@gmail.com" url="https://fmse.info.uaic.ro">UAIC</vendor>
 
     <change-notes><![CDATA[
@@ -13,6 +13,7 @@
       <li> v1.2.0 Highlighting/navigation performance improvement by using stub indexes.
                   Improved highlighting for rule vars.</li>
       <li> v1.2.1 Re-built for Intellij 2019. Syntax slightly extended.</li>
+      <li> v1.2.2 Support for named non-terminals.</li>
       </ul>
       ]]>
     </change-notes>
