@@ -17,7 +17,7 @@ class ExtKLexer(RegexLexer):
             (r'//.*?\n', Comment.Single),
         ],
         'keywords': [
-            (words(('kmod', 'endkm', 'including', 'subsort', 'eq', 'ceq', 'load', 'when'), suffix = r'\b'), Keyword),
+            (words(('kmod', 'endkm', 'including', 'subsort', 'eq', 'ceq', 'load', 'when', 'requires', 'module', 'endmodule', 'imports'), suffix = r'\b'), Keyword),
             (words(('syntax', 'sort', 'op', 'rule'), suffix = r'\b'), Keyword.Declaration),
             (words(('If', 'then', 'else', 'Let', 'Do', "Return"), suffix = r'\b'), Keyword),
         ],
