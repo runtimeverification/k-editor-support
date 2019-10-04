@@ -25,8 +25,8 @@ class ExtKLexer(RegexLexer):
             (r'"(\\\\|\\"|[^"])*"', String),
         ],
         'identifiers': [
-            (r'[$@%.#]*[a-zA-Z_][a-zA-Z_0-9]*', Name.Variable),
-            (r'</?[$@%.#]*[a-zA-Z_][a-zA-Z_0-9]*>', Name.Tag),
+            (r'[$@%.#]*[a-zA-Z_][a-zA-Z_0-9-]*', Name.Variable),
+            (r'</?[$@%.#]*[a-zA-Z_][a-zA-Z_0-9-]*>', Name.Tag),
         ],
         'numbers': [
             (r'[+-]?[0-9]+', Number.Integer),
