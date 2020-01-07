@@ -71,7 +71,7 @@ private balanced_expr ::= expr_no_brackets | "(" balanced_expr* ")"
 
 rule ::= "rule" rule_name? rule_body &new_item {implements="ro.uaic.fmse.kplugin.psi.IModuleItem"} //{pin=1}
 rule_name ::= "[" item_name "]" ":"
-rule_body  ::= (attribute_block_list|expr| ("when" | "requires"))+ &new_item
+rule_body  ::= (attribute_block_list|expr| ("when" | "requires" | "ensures"))+ &new_item
                | rule_body_with_open_tags
 rule_body_with_open_tags ::= (attribute_block_list|expr| "when" | cell_start)+ &new_item
 

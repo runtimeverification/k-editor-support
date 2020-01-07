@@ -44,6 +44,7 @@ String = \"([^\n\r\"\\] | \\t | \\n | \\r | \\\" | \\)*\"
 /* keywords */
     "requires"
   | "require"
+  | "ensures"
   | "module"
   | "endmodule"
   | "imports"
