@@ -1,4 +1,4 @@
-;;; k3-mode.el -- Emacs mode for the K Framework -*- lexical-binding: t -*-
+;;; k3-mode.el -- Emacs mode for the K Framework -*- lexical-binding: t; -*-
 
 ;; Updated from k-mode.el to support the new keywords in K3
 
