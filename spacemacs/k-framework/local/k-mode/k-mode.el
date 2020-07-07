@@ -46,37 +46,10 @@
   )
 
 ;;;; Syntax Highlighting ;;;;
-(setq k-keywords '("configuration" "context" "endmodule" "non-assoc" "ensures" "imports" "left" "module" "priorities" "require" "requires" "right" "rule" "sort" "syntax" "when"))
+(defvar k-keywords '("configuration" "context" "endmodule" "non-assoc" "ensures" "imports" "left" "module" "priorities" "require" "requires" "right" "rule" "sort" "syntax" "when"))
 
 ;; TODO: Only highlight these when inside square brackets.
-(setq k-annotations '("alias" "alias-rec" "anywhere" "bracket" "concrete" "context" "cool" "freshGenerator" "function" "functional" "heat" "hook" "hybrid" "klabel" "left" "macro" "macro-rec" "memo" "owise" "priority" "result" "right" "seqstrict" "simplification" "smtlib" "strict" "symbol" "token" "unboundVariables"))
-
-;; Set up the regexes
-
-;; Metalanguage.
-(setq k-keywords-regex (regexp-opt k-keywords 'words)
-      k-annotations-regex (regexp-opt k-annotations 'symbols)
-      k-keywords-special-regex "::=\\||"
-      k-declarations "\\(syntax\\|sort\\|op\\) +\\(\\({.+} +\\)?[a-zA-Z{}\\-]+\\)"
-      k-rewrites-regex "=>\\|<[^>*/|\"_[:space:]]+>\\|</[^>*/|\"_[:space:]]+>\\|<[^>*/|\"_[:space:]]+/>")
-
-;; Common constructs.
-(setq k-syntax-terminals-regex "\\.\\.\\.\\|~>\\||->\\|\\.\\s-\\|`\\w+"
-      k-custom-word-highlights-regex (regexp-opt k-custom-word-highlights 'words)
-      k-hash-symbols-regex "\\(#\\(?:And\\|Ceil\\|E\\(?:\\(?:qual\\|xist\\)s\\)\\|False\\|Not\\|Or\\|True\\|as\\|else\\|f\\(?:i\\|un\\)\\|if\\|then\\)\\)\\b"
-)
-
-;; Put them all together
-(setq k-font-lock-keywords
-      `((,k-custom-word-highlights-regex . font-lock-constant-face)
-        (,k-custom-highlights-regex      . font-lock-constant-face)
-        (,k-rewrites-regex               . font-lock-type-face)
-        (,k-syntax-terminals-regex       . font-lock-constant-face)
-        (,k-hash-symbols-regex           . font-lock-constant-face)
-        (,k-declarations                 2 font-lock-function-name-face)
-        (,k-keywords-regex               . font-lock-keyword-face)
-        (,k-keywords-special-regex       . font-lock-keyword-face)
-        (,k-annotations-regex            . font-lock-builtin-face)))
+(defvar k-annotations '("alias" "alias-rec" "anywhere" "bracket" "concrete" "context" "cool" "freshGenerator" "function" "functional" "heat" "hook" "hybrid" "klabel" "left" "macro" "macro-rec" "memo" "owise" "priority" "result" "right" "seqstrict" "simplification" "smtlib" "strict" "symbol" "token" "unboundVariables"))
 
 ;; Handle comments
 (defun set-comment-highlighting ()
@@ -137,6 +110,35 @@
 (define-derived-mode k-mode fundamental-mode
   "k mode"
   "Major Mode for the K framwork"
+
+  ;; Set up the regexes
+
+  ;; Metalanguage.
+  (setq k-keywords-regex (regexp-opt k-keywords 'words)
+        k-annotations-regex (regexp-opt k-annotations 'symbols)
+        k-keywords-special-regex "::=\\||"
+        k-declarations "\\(syntax\\|sort\\|op\\) +\\(\\({.+} +\\)?[a-zA-Z{}\\-]+\\)"
+        k-rewrites-regex "=>\\|<[^>*/|\"_[:space:]]+>\\|</[^>*/|\"_[:space:]]+>\\|<[^>*/|\"_[:space:]]+/>")
+
+  ;; Common constructs.
+  (setq k-syntax-terminals-regex "\\.\\.\\.\\|~>\\||->\\|\\.\\s-\\|`\\w+"
+        k-custom-word-highlights-regex (regexp-opt k-custom-word-highlights 'words)
+        k-hash-symbols-regex "\\(#\\(?:And\\|Ceil\\|E\\(?:\\(?:qual\\|xist\\)s\\)\\|False\\|Not\\|Or\\|True\\|as\\|else\\|f\\(?:i\\|un\\)\\|if\\|then\\)\\)\\b"
+        )
+
+  ;; Put them all together
+  (setq k-font-lock-keywords
+        `((,k-custom-word-highlights-regex . font-lock-constant-face)
+          (,k-custom-highlights-regex      . font-lock-constant-face)
+          (,k-rewrites-regex               . font-lock-type-face)
+          (,k-syntax-terminals-regex       . font-lock-constant-face)
+          (,k-hash-symbols-regex           . font-lock-constant-face)
+          (,k-declarations                 2 font-lock-function-name-face)
+          (,k-keywords-regex               . font-lock-keyword-face)
+          (,k-keywords-special-regex       . font-lock-keyword-face)
+          (,k-annotations-regex            . font-lock-builtin-face)))
+
+
   (setq font-lock-defaults '((k-font-lock-keywords)))
 
   ;; Comment entries
@@ -148,7 +150,9 @@
   ;; Shortcuts and menu
   (setup-k-mode-map)
   (use-local-map k-mode-map)
-)
+
+  (setq k-keywords nil k-annotations nil)
+  )
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.k$" . k-mode))
