@@ -29,9 +29,6 @@
 ;;  - custom highlights through user-controlled variables
 ;; Also has a menu and compilation through C-c C-c
 
-
-(require 'comint)
-
 ;;; Code:
 
 ;;;; Options ;;;;
