@@ -1,4 +1,4 @@
-;;; k-mode.el -- Emacs mode for the K Framework  -*- lexical-binding: t; -*-
+;;; k-mode.el --- Emacs mode for the K Framework  -*- lexical-binding: t; -*-
 
 ;; Author: Rikard Hjort & Michael Ilseman
 ;; Maintainer: Rikard Hjort <rikard.hjort@runtimeverification.com>
@@ -33,16 +33,13 @@
 
 ;;;; Options ;;;;
 (defvar k-dash-comments nil
-  "Set to make \"--\" be used as a beginning of a line comment (emacs's syntax table is unable to differentiate 3 character long comment beginners)."
-)
+  "Set to make \"--\" be used as a beginning of a line comment (emacs's syntax table is unable to differentiate 3 character long comment beginners).")
 
 (defvar k-custom-word-highlights nil
-  "A list of words to highlight, beyond the builtin syntax. For example \"'(\"andBool\" \"orBool\" \"+Int\")\"."
-  )
+  "A list of words to highlight, beyond the builtin syntax. For example \"'(\"andBool\" \"orBool\" \"+Int\")\".")
 
 (defvar k-custom-highlights-regex nil
-  "A list of words to highlight, beyond the builtin syntax. For example \"<-\\|\\|->\"."
-  )
+  "A list of words to highlight, beyond the builtin syntax. For example \"<-\\|\\|->\".")
 
 ;;;; Syntax Highlighting ;;;;
 (defvar k-keywords '("configuration" "context" "endmodule" "non-assoc" "ensures" "imports" "left" "module" "priorities" "require" "requires" "right" "rule" "sort" "syntax" "when"))
@@ -53,7 +50,7 @@
 ;; Handle comments
 (defvar k-mode-syntax-table (make-syntax-table) "Syntax table for `k-mode'.")
 
-(defun set-comment-highlighting ()
+(defun k-set-comment-highlighting ()
   "Set up comment highlighting."
 
   ;; comment style "// ..." and "/* ... */"
@@ -62,21 +59,18 @@
   (modify-syntax-entry ?* ". 23" k-mode-syntax-table)
 
   ;; comment style "-- ..."
-  (if k-dash-comments (modify-syntax-entry ?- ". 1b2b" k-mode-syntax-table))
-)
+  (if k-dash-comments (modify-syntax-entry ?- ". 1b2b" k-mode-syntax-table)))
 
 ;;;; K Bindings and menu ;;;;
 (defvar k-prev-load-file nil
-  "Record the last directory and file used in loading or compiling."
-)
+  "Record the last directory and file used in loading or compiling.")
 
 (defun k-mode-about ()
   "Show package info."
   (interactive)
-  (message "k-mode for the K Framework")
-)
+  (message "k-mode for the K Framework"))
 
-(defun setup-k-mode-map ()
+(defun k-setup-k-mode-map ()
   "Set up keyboard mapping for compilation."
   (setq k-mode-map (make-sparse-keymap))
 
@@ -95,8 +89,7 @@
     (define-key menuMap [separator]
       '("--"))
     (define-key menuMap [kompile]
-      '("kompile" . compile)))
-)
+      '("kompile" . compile))))
 
 
 
@@ -121,8 +114,7 @@
   ;; Common constructs.
   (setq k-syntax-terminals-regex "\\.\\.\\.\\|~>\\||->\\|\\.\\s-\\|`\\w+"
         k-custom-word-highlights-regex (regexp-opt k-custom-word-highlights 'words)
-        k-hash-symbols-regex "\\(#\\(?:And\\|Ceil\\|E\\(?:\\(?:qual\\|xist\\)s\\)\\|False\\|Not\\|Or\\|True\\|as\\|else\\|f\\(?:i\\|un\\)\\|if\\|then\\)\\)\\b"
-        )
+        k-hash-symbols-regex "\\(#\\(?:And\\|Ceil\\|E\\(?:\\(?:qual\\|xist\\)s\\)\\|False\\|Not\\|Or\\|True\\|as\\|else\\|f\\(?:i\\|un\\)\\|if\\|then\\)\\)\\b")
 
   ;; Put them all together
   (setq k-font-lock-keywords
@@ -140,16 +132,14 @@
   (setq font-lock-defaults '((k-font-lock-keywords)))
 
   ;; Comment entries
-  (set-comment-highlighting)
+  (k-set-comment-highlighting)
 
   ;; Set comment start characters
   (setq comment-start "//")
 
   ;; Shortcuts and menu
-  (setup-k-mode-map)
-  (use-local-map k-mode-map)
-
-  )
+  (k-setup-k-mode-map)
+  (use-local-map k-mode-map))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.k$" . k-mode))
