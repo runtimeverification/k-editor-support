@@ -52,6 +52,8 @@
 (defvar k-annotations '("alias" "alias-rec" "anywhere" "bracket" "concrete" "context" "cool" "freshGenerator" "function" "functional" "heat" "hook" "hybrid" "klabel" "left" "macro" "macro-rec" "memo" "owise" "priority" "result" "right" "seqstrict" "simplification" "smtlib" "strict" "symbol" "token" "unboundVariables"))
 
 ;; Handle comments
+(defvar k-mode-syntax-table (make-syntax-table) "Syntax table for `k-mode'.")
+
 (defun set-comment-highlighting ()
   "Set up comment highlighting."
 
