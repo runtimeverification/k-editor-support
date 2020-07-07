@@ -1,4 +1,11 @@
-;;; k-mode.el -- Emacs mode for the K Framework
+;;; k-mode.el -- Emacs mode for the K Framework  -*- lexical-binding: t; -*-
+
+;; Author: Rikard Hjort & Michael Ilseman
+;; Maintainer: Rikard Hjort <rikard.hjort@runtimeverification.com>
+;; Keywords: languages
+;; Version: 0.2.0
+
+;; This file is NOT part of GNU Emacs.
 
 ;; Usage: add the below to your .emacs file:
 ;;     (setq load-path (cons "path/to/this/file" load-path))
@@ -8,6 +15,8 @@
 ;;     (use-package markdown-mode)
 ;;     (push '("k" . k-mode) markdown-code-lang-modes) ;; Use C-c C-x C-f to turn on highlighting on and off.
 
+;;; Commentary:
+;;
 ;; Currently has syntax highlighting for:
 ;;  - keywords
 ;;  - cells and rewrites
@@ -19,9 +28,10 @@
 ;;  - custom highlights through user-controlled variables
 ;; Also has a menu and compilation through C-c C-c
 
-;; Authors: Michael Ilseman & Rikard Hjort
 
 (require 'comint)
+
+;;; Code:
 
 ;;;; Options ;;;;
 (defvar k-dash-comments nil
@@ -123,6 +133,7 @@
 
 ;;;; K Mode ;;;;
 
+;;;###autoload
 (define-derived-mode k-mode fundamental-mode
   "k mode"
   "Major Mode for the K framwork"
@@ -139,4 +150,9 @@
   (use-local-map k-mode-map)
 )
 
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.k$" . k-mode))
+
 (provide 'k-mode)
+
+;;; k-mode.el ends here
