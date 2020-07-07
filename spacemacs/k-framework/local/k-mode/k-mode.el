@@ -34,16 +34,15 @@
 
 ;;;; Options ;;;;
 (defvar k-dash-comments nil
-  "Set to make \"--\" be used as a beginning of a line comment
-   (emacs's syntax table is unable to differentiate 3 character long comment beginners)"
+  "Set to make \"--\" be used as a beginning of a line comment (emacs's syntax table is unable to differentiate 3 character long comment beginners)."
 )
 
 (defvar k-custom-word-highlights nil
-  "A list of words to highlight, beyond the builtin syntax. For example \"'(\"andBool\" \"orBool\" \"+Int\")\""
+  "A list of words to highlight, beyond the builtin syntax. For example \"'(\"andBool\" \"orBool\" \"+Int\")\"."
   )
 
 (defvar k-custom-highlights-regex nil
-  "A list of words to highlight, beyond the builtin syntax. For example \"<-\\|\\|->\""
+  "A list of words to highlight, beyond the builtin syntax. For example \"<-\\|\\|->\"."
   )
 
 ;;;; Syntax Highlighting ;;;;
@@ -81,7 +80,7 @@
 
 ;; Handle comments
 (defun set-comment-highlighting ()
-  "Set up comment highlighting"
+  "Set up comment highlighting."
 
   ;; comment style "// ..." and "/* ... */"
   (modify-syntax-entry ?\/ ". 124b" k-mode-syntax-table)
@@ -94,18 +93,20 @@
 
 ;;;; K Bindings and menu ;;;;
 (defvar k-prev-load-file nil
-  "Record the last directory and file used in loading or compiling"
+  "Record the last directory and file used in loading or compiling."
 )
 (defcustom k-source-modes '(k-mode)
-  "Determine if a buffer represents a k file"
+  "Determine if a buffer represents a k file."
 )
 
 (defun k-mode-about ()
+  "Show package info."
   (interactive)
   (message "k-mode for the K Framework")
 )
 
 (defun setup-k-mode-map ()
+  "Set up keyboard mapping for compilation."
   (setq k-mode-map (make-sparse-keymap))
 
   ;; Keyboard shortcuts
