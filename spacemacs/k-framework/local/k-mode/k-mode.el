@@ -68,9 +68,6 @@
 (defvar k-prev-load-file nil
   "Record the last directory and file used in loading or compiling."
 )
-(defcustom k-source-modes '(k-mode)
-  "Determine if a buffer represents a k file."
-)
 
 (defun k-mode-about ()
   "Show package info."
@@ -151,7 +148,6 @@
   (setup-k-mode-map)
   (use-local-map k-mode-map)
 
-  (setq k-keywords nil k-annotations nil)
   )
 
 ;;;###autoload
