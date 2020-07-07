@@ -10,7 +10,6 @@
 ;; Usage: add the below to your .emacs file:
 ;;     (setq load-path (cons "path/to/this/file" load-path))
 ;;     (load-library "k-mode")
-;;     (add-to-list 'auto-mode-alist '("\\.k$" . k-mode)) ;; to launch k-mode for .k files
 ;; If you want to enable inline syntax highlighting in Markdown:
 ;;     (use-package markdown-mode)
 ;;     (push '("k" . k-mode) markdown-code-lang-modes) ;; Use C-c C-x C-f to turn on highlighting on and off.
