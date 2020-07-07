@@ -3,7 +3,9 @@
 ;; Author: Rikard Hjort & Michael Ilseman
 ;; Maintainer: Rikard Hjort <rikard.hjort@runtimeverification.com>
 ;; Keywords: languages
+;; URL: https://github.com/kframework/k-editor-support
 ;; Version: 0.2.0
+;; Package-Requires: ((emacs "25.1"))
 
 ;; This file is NOT part of GNU Emacs.
 
