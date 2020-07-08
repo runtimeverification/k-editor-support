@@ -16,7 +16,7 @@ Installation
 
 ```sh
 git clone https://github.com/k-editor-support/
-ln -s $(pwd)k-editor-support/spacemacs/k-framework $HOME/.emacs.d/private/local
+ln -s $(pwd)/k-editor-support/spacemacs/k-framework $HOME/.emacs.d/private/local
 ```
 
 Add `k-framework` to the list `dotspacemacs-configuration-layers` in your spacemacs config.
