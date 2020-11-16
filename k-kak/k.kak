@@ -54,7 +54,7 @@ add-highlighter shared/k/code/ regex '\b\d+\.' 0:value
 add-highlighter shared/k/code/ regex (?<=[\w\s\d\)\]'"_])(\[\]|#isConcrete|#isVariable|#collectOdd|#location) 0:operator
 #add-highlighter shared/k/code/ regex (?<=[\w\s\d\)\]'"_])(\+Int|\*Int|-Int|/Int|>Int|<Int) 0:operator
 add-highlighter shared/k/code/ regex (?<=[\s])(\.\.\.|==|=/=|:=|:/=) 0:builtin   #space before
-add-highlighter shared/k/code/ regex (?<=[\s])((::=|=>|~>|\||>)\s)   0:builtin   #space before and after
+add-highlighter shared/k/code/ regex (?<=[\s])((::=|=>|~>|\||>|=)\s)   0:builtin #space before and after
 add-highlighter shared/k/code/ regex (:|::|:>)                       0:builtin   #no space restrictions
 add-highlighter shared/k/code/ regex ^\h*(?:import|imports)\h+(\S+) 1:module
 add-highlighter shared/k/code/ regex (?<=[\w\s\d'"_])((#if|#then|#else|#fi|#Ceil|#Equals|#And|#Or|#as|#fun)\s) 0:keyword
@@ -90,7 +90,7 @@ evaluate-commands %sh{
     
     # Keyword list
     keywords="configuration module endmodule syntax rule require requires context"
-    keywords="${keywords} syntax\ priorities syntax\ left syntax\ right syntax\ non-assoc"
+    keywords="${keywords} syntax\ priorities syntax\ left syntax\ right syntax\ non-assoc syntax\ lexical"
     keywords="${keywords} context\ alias claim"
 
     types="Bool String Bytes Float Int List Set Map Bag Array K KItem KBott StringBuffer KResult"
