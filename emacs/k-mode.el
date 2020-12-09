@@ -32,9 +32,6 @@
 ;;; Code:
 
 ;;;; Options ;;;;
-(defvar k-dash-comments nil
-  "Set to make \"--\" be used as a beginning of a line comment (emacs's syntax table is unable to differentiate 3 character long comment beginners).")
-
 (defvar k-custom-word-highlights nil
   "A list of words to highlight, beyond the builtin syntax. For example \"'(\"andBool\" \"orBool\" \"+Int\")\".")
 
@@ -56,10 +53,7 @@
   ;; comment style "// ..." and "/* ... */"
   (modify-syntax-entry ?\/ ". 124b" k-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" k-mode-syntax-table)
-  (modify-syntax-entry ?* ". 23" k-mode-syntax-table)
-
-  ;; comment style "-- ..."
-  (if k-dash-comments (modify-syntax-entry ?- ". 1b2b" k-mode-syntax-table)))
+  (modify-syntax-entry ?* ". 23" k-mode-syntax-table))
 
 ;;;; K Bindings and menu ;;;;
 (defvar k-prev-load-file nil
@@ -86,8 +80,6 @@
       '("About k-mode" . k-mode-about))
     ;; (define-key menuMap [customize]
     ;;   '("Customize k-mode" . k-customize))
-    (define-key menuMap [separator]
-      '("--"))
     (define-key menuMap [kompile]
       '("kompile" . compile))))
 
