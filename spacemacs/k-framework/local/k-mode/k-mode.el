@@ -1,1 +1,1 @@
-emacs/k-mode.el
+../../../../emacs/k-mode.el
