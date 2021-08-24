@@ -1,9 +1,10 @@
 K/Maude syntax highlighter for vim
 
-To install, copy (or link) "kframework.vim" file into the ~/.vim/syntax 
-directory and add the following to your ~/.vimrc file
+To install using vim-plug, add the following to your vimrc:
 
-au BufRead,BufNewFile *.k set filetype=kframework
-au! Syntax kframework source kframework.vim
-syn on
+```vim
+Plug 'kframework/k-editor-support', { 'rtp': 'vim' }
+```
 
+Alternatively, if you do not use a package manager, copy (or link) the vim/
+subdirectory into your ~/.vim directory.
