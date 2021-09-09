@@ -32,9 +32,6 @@
 ;;; Code:
 
 ;;;; Options ;;;;
-(defvar k-dash-comments nil
-  "Set to make \"--\" be used as a beginning of a line comment (emacs's syntax table is unable to differentiate 3 character long comment beginners).")
-
 (defvar k-custom-word-highlights nil
   "A list of words to highlight, beyond the builtin syntax. For example \"'(\"andBool\" \"orBool\" \"+Int\")\".")
 
@@ -42,7 +39,7 @@
   "A list of words to highlight, beyond the builtin syntax. For example \"<-\\|\\|->\".")
 
 ;;;; Syntax Highlighting ;;;;
-(defvar k-keywords '("configuration" "context" "endmodule" "non-assoc" "ensures" "imports" "left" "module" "priorities" "require" "requires" "right" "rule" "sort" "syntax" "when"))
+(defvar k-keywords '("configuration" "context" "endmodule" "non-assoc" "ensures" "imports" "left" "module" "priorities" "require" "requires" "right" "rule" "claim" "sort" "syntax" "when"))
 
 ;; TODO: Only highlight these when inside square brackets.
 (defvar k-annotations '("alias" "alias-rec" "anywhere" "bracket" "concrete" "context" "cool" "freshGenerator" "function" "functional" "heat" "hook" "hybrid" "klabel" "left" "macro" "macro-rec" "memo" "owise" "priority" "result" "right" "seqstrict" "simplification" "smtlib" "strict" "symbol" "token" "unboundVariables"))
@@ -56,10 +53,7 @@
   ;; comment style "// ..." and "/* ... */"
   (modify-syntax-entry ?\/ ". 124b" k-mode-syntax-table)
   (modify-syntax-entry ?\n "> b" k-mode-syntax-table)
-  (modify-syntax-entry ?* ". 23" k-mode-syntax-table)
-
-  ;; comment style "-- ..."
-  (if k-dash-comments (modify-syntax-entry ?- ". 1b2b" k-mode-syntax-table)))
+  (modify-syntax-entry ?* ". 23" k-mode-syntax-table))
 
 ;;;; K Bindings and menu ;;;;
 (defvar k-prev-load-file nil
@@ -86,8 +80,6 @@
       '("About k-mode" . k-mode-about))
     ;; (define-key menuMap [customize]
     ;;   '("Customize k-mode" . k-customize))
-    (define-key menuMap [separator]
-      '("--"))
     (define-key menuMap [kompile]
       '("kompile" . compile))))
 
