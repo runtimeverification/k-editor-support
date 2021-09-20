@@ -1,3 +1,3 @@
-au BufRead,BufNewFile *.k set filetype=kframework
-au! Syntax kframework source kframework.vim
+au BufRead,BufNewFile *.k set filetype=k
+au! Syntax k source kframework.vim
 syn on
