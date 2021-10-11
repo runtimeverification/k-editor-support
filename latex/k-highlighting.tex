@@ -1,0 +1,47 @@
+\usepackage{color, xcolor} % for colors
+
+%%%%%%% Define custom colors %%%%%%%
+
+\definecolor{kterminalred}{RGB}{188,46,47}
+\definecolor{knonterminalpurple}{RGB}{70, 32, 126}
+\definecolor{ksyntaxgreen}{RGB}{63,131,21}
+\definecolor{ksyntaxblack}{RGB}{2,15,41}
+\definecolor{kcomments}{RGB}{78,137,136}
+
+\usepackage{listings} % listings package to define language
+
+\lstdefinelanguage{K}{
+	keywords=[1]{ensures, priorities, require, requires, rule, claim, sort, syntax}, % k keywords
+	keywordstyle=[1]\color{ksyntaxgreen}\bfseries,
+	keywords=[2]{configuration, context, endmodule, imports, left, module, non-assoc, right, when}, %more keywords, different style
+	keywordstyle=[2]\color{knonterminalpurple}\bfseries,
+	keywords=[3]{alias,alias-rec,anywhere,bracket,concrete,context,cool,freshGenerator,function,functional,heat,hook,hybrid,klabel,left,macro,macro-rec,memo,owise,priority,result,right,seqstrict,simplification,smtlib,strict,symbol,token,unboundVariables},	% k annotations
+	keywordstyle=[3]\color{ksyntaxblack}\bfseries,
+	sensitive=false,
+	comment=[l][\color{kcomments}]{//}, % comment style
+    morecomment=[s][\color{ksyntaxgreen}]{<}{>}, % NOT a comment, easy way to parse k cells
+    identifierstyle=\color{knonterminalpurple}, % everything else
+	stringstyle=\color{kterminalred}\ttfamily, % terminal syntax productions
+	morestring=[b]', %string delimiters
+	morestring=[b]"
+}
+
+\lstset{
+	language=K,
+	backgroundcolor=\color{verylightgray},
+	extendedchars=true,
+	basicstyle=\footnotesize\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+    keepspaces=true,
+	numbers=left,
+	numberstyle=\footnotesize,
+	numbersep=9pt,
+	tabsize=4,
+	breaklines=true,
+	breakindent=30pt,
+	showtabs=false,
+	captionpos=b,
+	frame=single,
+	frameround=tttt
+}
