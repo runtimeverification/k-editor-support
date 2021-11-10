@@ -30,8 +30,8 @@ syn keyword kRequire      require nextgroup=kRequireFile skipwhite
 syn region  kRequireFile  contained start=+"+ end=+"+
  
 syn keyword kModule       module nextgroup=kModuleName skipwhite endmodule
-syn keyword kImports      imports nextgroup=kImportsPP skipwhite
-syn match   kImportsPP    contained "\(public\|private\)" nextgroup=kModuleName skipwhite 
+syn match   kImports      "imports\s\+\(public\|private\)\?" contains=kImportsPP nextgroup=kModuleName skipwhite
+syn match   kImportsPP    contained "\(public\|private\)"
 " not sure why \h is required, but it does not match without it
 syn match   kModuleName   contained "#\=\h\(\w\|-\)*"
 
@@ -41,7 +41,7 @@ syn keyword kSyntaxAttr   left right prefer avoid priorities lexical
 syn match   kSyntaxAttr   "\<non-assoc\>"
 
 syn keyword kStatement    configuration rule claim when where requires ensures
-syn keyword kContext      context nextgroup=KContextAlias skipwhite
+syn match   kContext      "context\s\+\(alias\)\?" contains=kContextAlias skipwhite
 syn keyword kContextAlias contained alias
 
 " the following is just for folding (Ctrl-F9), currently not working
