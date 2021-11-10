@@ -30,8 +30,7 @@ syn keyword kRequire      require nextgroup=kRequireFile skipwhite
 syn region  kRequireFile  contained start=+"+ end=+"+
  
 syn keyword kModule       module nextgroup=kModuleName skipwhite endmodule
-syn match   kImports      "imports\s\+\(public\|private\)\?" contains=kImportsPP nextgroup=kModuleName skipwhite
-syn match   kImportsPP    contained "\(public\|private\)"
+syn match   kImports      "\<imports\s\+\(public\>\|private\>\)\?" nextgroup=kModuleName skipwhite
 " not sure why \h is required, but it does not match without it
 syn match   kModuleName   contained "#\=\h\(\w\|-\)*"
 
@@ -41,8 +40,7 @@ syn keyword kSyntaxAttr   left right prefer avoid priorities lexical
 syn match   kSyntaxAttr   "\<non-assoc\>"
 
 syn keyword kStatement    configuration rule claim when where requires ensures
-syn match   kContext      "context\s\+\(alias\)\?" contains=kContextAlias skipwhite
-syn keyword kContextAlias contained alias
+syn match   kContext      "\<context\s\+\(alias\>\)\?" skipwhite
 
 " the following is just for folding (Ctrl-F9), currently not working
 syn region  kCellContent  start="<\h\(\w\|-\)*>" end="</\h\(\w\|-\)*>" fold transparent
@@ -90,14 +88,12 @@ KHiLink kRequire        Include
 KHiLink kRequireFile    Include
 KHiLink kModule         Keyword
 KHiLink kImports        Keyword
-KHiLink kImportsPP      Keyword
 KHiLink kModuleName     Type
 KHiLink kSyntax         Statement
 KHiLink kSyntaxName     Type
 KHiLink kSyntaxAttr     StorageClass
 KHiLink kStatement      Statement
 KHiLink kContext        Statement
-KHiLink kContextAlias   Statement
 " KHiLink kCellContent    PreProc
 KHiLink kCell           Structure
 KHiLink kCellAttr       Structure
