@@ -11,4 +11,4 @@ color cyan "\<(isMatching|getMatching|lengthString|chrChar|ordChar|substrString|
 color green "//.*"
 color green start="/\*" end="\*/"
 
-color black,magenta start="<" end=">"
+color black,magenta start="<(\/)?(\w)+" end=">"
