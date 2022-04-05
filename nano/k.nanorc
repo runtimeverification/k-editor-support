@@ -8,7 +8,7 @@ color yellow "\<(KResult|List|Int|Bool|Float|String|Id|$PGM|$STATE|Map|NeList|Le
 color cyan "\<(BUILTIN-SYNTAX-HOOKS|BUILTIN-HOOKS|SUBSTITUTION|PATTERN-MATCHING)\>"
 color cyan "\<(isMatching|getMatching|lengthString|chrChar|ordChar|substrString|subString|findSting|rfindString|String2Int|Int2String|categoryChar|directionalityChar|fresh|ListItem|SetItem|BagItem|\.List|\.Set|\.Bag|\.K|\.|_)\>"
 
-color green "//.*"
+color green "//[^\"]*$"
 color green start="/\*" end="\*/"
 
-color black,magenta start="<(\/)?(\w)+" end=">"
+color black,magenta start="<(\/)?(\w)+" end=">""
