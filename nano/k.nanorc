@@ -12,3 +12,6 @@ color green "//[^\"]*$"
 color green start="/\*" end="\*/"
 
 color black,magenta start="<(\/)?(\w)+" end=">"
+
+#Because regex-based syntax highlighting is limited, it can be annoying if expressions are mis-highlighted. This provides a way to ignore syntax highlighting in a whole file.
+color white,black start="^//<K-IGNORE-NANO-HIGHLIGHT>$" end="^//</K-IGNORE-NANO-HIGHLIGHT>$"
