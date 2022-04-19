@@ -1,0 +1,16 @@
+syntax k "\.k"
+comment "//"
+comment "/*|*/"
+
+color brightblue "\<(syntax|claim|import|imports|rule|notBool|andBool|orBool|require|requires|keys|in|context|configuration|module|endmodule)\>"
+color brightmagenta "\<(binder|left|right|strict|seqstrict|bracket|true|false|non-assoc|superheat|supercool|prefer|macro|structural|klabel|klatex|hook|function|transition|priority|priorities|anywhere|owise)\>"
+color yellow "\<(KResult|List|Int|Bool|Float|String|Id|$PGM|$STATE|Map|NeList|Set|Bag)\>"
+color cyan "\<(BUILTIN-SYNTAX-HOOKS|BUILTIN-HOOKS|SUBSTITUTION|PATTERN-MATCHING)\>"
+color cyan "\<(isMatching|getMatching|lengthString|chrChar|ordChar|substrString|subString|findSting|rfindString|String2Int|Int2String|categoryChar|directionalityChar|fresh|ListItem|SetItem|\.List|\.Set|\.K|\.|_)\>"
+color brightyellow start="<(\/)?(\w)+" end=">"
+
+color green "//[^\"]*$"
+color green start="/\*" end="\*/"
+
+#Because regex-based syntax highlighting is limited, it can be annoying if expressions are mis-highlighted. This provides a way to ignore syntax highlighting in a whole file.
+color white,black start="^//<K-IGNORE-NANO-HIGHLIGHT>$" end="^//</K-IGNORE-NANO-HIGHLIGHT>$"
