@@ -14,3 +14,7 @@ color green start="/\*" end="\*/"
 
 #Because regex-based syntax highlighting is limited, it can be annoying if expressions are mis-highlighted. This provides a way to ignore syntax highlighting in a whole file.
 color white,black start="^//<K-IGNORE-NANO-HIGHLIGHT>$" end="^//</K-IGNORE-NANO-HIGHLIGHT>$"
+
+#Here are automatically-applied highlighting ignore rules for known false positives with the syntax highlighting.
+color white start="<(\/)?Int" end=">"
+
