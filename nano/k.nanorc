@@ -2,7 +2,7 @@ syntax k "\.k"
 comment "//"
 comment "/*|*/"
 
-color brightblue "\<(syntax|claim|import|imports|rule|notBool|andBool|orBool|require|requires|keys|in|context|configuration|module|endmodule)\>"
+color brightblue "\<(syntax|claim|import|imports|rule|notBool|andBool|orBool|require|requires|ensures|keys|in|context|configuration|module|endmodule)\>"
 color brightmagenta "\<(binder|left|right|strict|seqstrict|bracket|true|false|non-assoc|superheat|supercool|prefer|macro|structural|klabel|klatex|hook|function|transition|priority|priorities|anywhere|owise)\>"
 color yellow "\<(KResult|List|Int|Bool|Float|String|Id|$PGM|$STATE|Map|NeList|Set|Bag)\>"
 color cyan "\<(BUILTIN-SYNTAX-HOOKS|BUILTIN-HOOKS|SUBSTITUTION|PATTERN-MATCHING)\>"
