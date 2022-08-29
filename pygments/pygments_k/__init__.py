@@ -1,12 +1,13 @@
-from pygments.lexer import RegexLexer, words, include
-from pygments.token import Text, Comment, Keyword, Name, String, Number, Punctuation, Operator
+from pygments.lexer import RegexLexer, words, include, bygroups
+from pygments.token import Text, Comment, Keyword, Name, String, Number, Punctuation, Operator, Generic
 
-__all__ = ["ExtKLexer"]
+__all__ = ["KLexer"]
 
-class ExtKLexer(RegexLexer):
 
-    name = "ExtK"
-    aliases = ["extk"]
+class KLexer(RegexLexer):
+
+    name = "K"
+    aliases = ["k"]
 
     tokens = {
         'whitespace': [
@@ -17,37 +18,39 @@ class ExtKLexer(RegexLexer):
             (r'//.*?\n', Comment.Single),
         ],
         'keywords': [
-            (words(('kmod', 'endkm', 'including', 'subsort', 'eq', 'ceq', 'load', 'when'), suffix = r'\b'), Keyword),
-            (words(('syntax', 'sort', 'op', 'rule'), suffix = r'\b'), Keyword.Declaration),
-            (words(('If', 'then', 'else', 'Let', 'Do', "Return"), suffix = r'\b'), Keyword),
+            (words(
+                ('endmodule', 'syntax', 'rule', 'configuration', 'claim', 'context', 'alias')), Keyword.Reserved),
+            (r'(require)(\s+)(".+")', Keyword.Pseudo),
         ],
         'literals': [
             (r'"(\\\\|\\"|[^"])*"', String),
         ],
         'identifiers': [
+            (r'(module|imports)(\s+)([A-Z][-A-Z]*)$', bygroups(Keyword.Reserved,
+                                                               Text, Name.Namespace)),
             (r'[$@%.#]*[a-zA-Z_][a-zA-Z_0-9]*', Name.Variable),
-            (r'</?[$@%.#]*[a-zA-Z_][a-zA-Z_0-9]*>', Name.Tag),
+            (r'</?[$@%.#]*[a-zA-Z_][a-zA-Z_0-9]*>', Name.Function),
         ],
         'numbers': [
             (r'[+-]?[0-9]+', Number.Integer),
         ],
         'symbols': [
-            (words(('[', ']', '{', '}', '(', ')')), Punctuation),
+            (words(('{', '}', '(', ')')), Punctuation),
             (words(('BEGIN', 'END')), Keyword),
             (words((',', ';', ':', ':>', '=>', '::=', '|->', '=/=', '...')), Punctuation),
         ],
-        'operators': [
-            (words(('|', '=')), Operator),
+        'other': [
+            (r'\[.*\]$', Name.Attribute),
+            ('.', Generic),
         ],
         'root': [
             include('comments'),
             include('whitespace'),
             include('keywords'),
+            include('identifiers'),
             include('literals'),
             include('numbers'),
             include('symbols'),
-            include('operators'),
-            include('identifiers'),
+            include('other'),
         ],
     }
-
