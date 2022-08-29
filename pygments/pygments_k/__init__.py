@@ -21,9 +21,6 @@ class KLexer(RegexLexer):
             (words(
                 ('endmodule', 'syntax', 'rule', 'configuration', 'claim')), Keyword.Reserved),
             (r'(require)(\s+)(".+")', Keyword.Pseudo),
-            # (words(('module', 'endmodule', 'including', 'subsort', 'eq', 'ceq', 'load', 'when'), suffix = r'\b'), Keyword),
-            # (words(('syntax', 'sort', 'op', 'rule'), suffix = r'\b'), Keyword.Declaration),
-            # (words(('If', 'then', 'else', 'Let', 'Do', "Return"), suffix = r'\b'), Keyword),
         ],
         'literals': [
             (r'"(\\\\|\\"|[^"])*"', String),
