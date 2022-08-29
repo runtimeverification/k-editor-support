@@ -19,7 +19,7 @@ class KLexer(RegexLexer):
         ],
         'keywords': [
             (words(
-                ('endmodule', 'syntax', 'rule', 'configuration', 'claim')), Keyword.Reserved),
+                ('endmodule', 'syntax', 'rule', 'configuration', 'claim', 'context', 'alias')), Keyword.Reserved),
             (r'(require)(\s+)(".+")', Keyword.Pseudo),
         ],
         'literals': [
