@@ -25,26 +25,30 @@
 
         "requireSource": {
             "name": "keyword.control.requires.k",
-            "match": "\\b(requires)\\b"
+            "match": "\\b(require[s]?)\\b"
         },
 
         "keyword": {
             "patterns": [
                 {
                     "name": "keyword.control.k",
-                    "match": "\\b(requires)\\b"
+                    "match": "\\b(require[s]?)\\b"
                 },
                 {
                     "name": "keyword.stmt.k",
-                    "match": "\\b(rule|syntax|configuration|context)\\b"
+                    "match": "\\b(rule|syntax|configuration|context|ensures)\\b"
+                },
+                {
+                    "name": "entity.name.class.k",
+                    "match": "\\b(List|NeList)\\b"
                 },
                 {
                     "name": "entity.name.type.k",
-                    "match": "\\b(Id|Int|Bool|String|Token|Lexer|Float|Kresult)\\b"
+                    "match": "\\b(Id|Int|Bool|String|Float|KResult|K|KItem)\\b"
                 },
                 {
                     "name": "string.regexp.k",
-                    "match": "\\b(owise|anywhere|function|functional|strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro|token|notInRules|autoReject|structural|latex|binder)\\b"
+                    "match": "\\b(owise|anywhere|function|total|avoid|prefer|bracket|non-assoc|strict|seqstrict|left|right|macro|token|latex|binder)\\b"
                 },
                 {
                     "name": "support.type.property-name.k",
@@ -115,9 +119,9 @@
         },
 
         "imports-stmt": {
-            "match": "(imports)\\s*([\\w\\d\\-_]*)$",
+            "match": "(import[s]?)\\s*([\\w\\d\\-_]*)$",
             "captures": {
-                "1": { "name": "keyword.control.imports.k"},
+                "1": { "name": "keyword.stmt.k"},
                 "2": { "name": "entity.name.namespace.imports.k" }
             }
         },
