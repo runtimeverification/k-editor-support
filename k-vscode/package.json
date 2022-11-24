@@ -24,14 +24,25 @@
                 "aliases": ["k", "kframework"],
                 "extensions": [".k"],
                 "configuration": "./language-configuration.json"
+            },
+            {
+                "id": "kore",
+                "aliases": ["kore"],
+                "extensions": [".kore"],
+                "configuration": "./language-configuration.json"
             }
-        ],
+      ],
         "grammars": [
             {
                 "language": "kframework",
                 "scopeName": "source.k",
                 "path": "./syntaxes/kframework.tmLanguage.json"
+            },
+            {
+                "language": "kore",
+                "scopeName": "source.kore",
+                "path": "./syntaxes/kframework.kore.json"
             }
-        ]
+      ]
     }
 }
