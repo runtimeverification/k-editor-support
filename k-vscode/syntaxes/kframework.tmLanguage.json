@@ -49,7 +49,7 @@
           {
             "comment": "import MODULE-NAME",
   
-            "begin": "\\b(imports\\b\\s*private?)\\s+([^\\s]+)\\s*$",
+            "begin": "\\b(import[s]?\\b\\s*(private|public)?)\\s+([^\\s]+)\\s*$",
             "beginCaptures": {
               "1": {"name": "keyword.imports.k"},
               "2": {
@@ -60,7 +60,7 @@
               }
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.imports.k",
   
@@ -69,7 +69,7 @@
             ]
           },
           {
-            "comment": "rule [context]: left => right [attributes]",
+            "comment": "rule [label]: left => right [attributes]",
   
             "begin": "\\b(rule|claim)\\s*(\\[)([^\\[\\]]*)(\\])(:)",
             "beginCaptures": {
@@ -80,7 +80,7 @@
               "5": {"name": "keyword.rule.punctuation.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.rule.k",
   
@@ -90,13 +90,13 @@
           },
           {
             "comment": "rule left => right [attributes]",
-            "begin": "\\brule|claim|lemma\\b",
+            "begin": "\\brule|claim\\b",
   
             "beginCaptures": {
               "0": {"name": "keyword.rule.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.rule.k",
   
@@ -112,7 +112,7 @@
               "0": {"name": "keyword.stmt.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.syntax.k",
   
@@ -134,7 +134,7 @@
               "0": {"name": "keyword.stmt.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.syntax.k",
   
@@ -152,7 +152,7 @@
               "0": {"name": "keyword.stmt.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.syntax.k",
   
@@ -161,7 +161,7 @@
               {"include": "#attributes"},
               {
                 "comment": "Need to figure out how to use the captures here.",
-                "match": "(>)\\s*(left|right)\\s*(:)",
+                "match": "(>)\\s*(left|right|non-assoc)\\s*(:)",
                 "name": "keyword.syntax.punctuation.k"
               },
               {
@@ -185,7 +185,7 @@
               "6": {"name": "keyword.context.punctuation.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.context.k",
   
@@ -202,7 +202,7 @@
               "0": {"name": "keyword.stmt.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.context.k",
   
@@ -219,7 +219,7 @@
               "0": {"name": "keyword.stmt.k"}
             },
   
-            "end": "(?=(\\b(imports|syntax|context|configuration|rule|claim|lemma|endlemma|endmodule)\\b))",
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
   
             "name": "section.configuration.k",
   
@@ -270,7 +270,7 @@
       },
       "attribute_name": {
         "comment": "Is 'amb' really an attribute?",
-        "match": "\\b(strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro|macro-rec|token|autoReject|noAutoReject|structural|latex|binder|klabel|symbol|amb|hook|unit|function|functional|result|assoc|comm|idem|element|format|smtlib|anywhere|context|smt-hook|smt-lemma|owise|label|hybrid|heat|cool|trusted|simplification|priority|concrete|symbol|symbolic|no-evaluators|injective)\\b",
+        "match": "\\b(strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro|macro-rec|token|structural|latex|binder|klabel|symbol|hook|unit|function|total|result|assoc|comm|idem|element|format|smtlib|anywhere|context|smt-hook|smt-lemma|owise|label|hybrid|heat|cool|trusted|simplification|priority|concrete|symbol|symbolic|no-evaluators|injective)\\b",
         "name": "entity.name.attribute.k"
       },
       "attributes": {
