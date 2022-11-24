@@ -1,0 +1,80 @@
+{
+  "name": "kore language",
+  "scopeName": "source.kore",
+  "patterns": [
+      {"include": "#strings_or_comments"},
+      {"include": "#attributes"},
+      {"include": "#keywords"},
+      {"include": "#operators"},
+      {"include": "#punctuation"}
+  ],
+  "repository": {
+      "block_comment": {
+          "comment": "/* this is a comment */",
+    
+          "begin": "/\\*",
+          "end": "\\*/",
+    
+          "name": "comment.block.k"
+      },
+      "line_comment": {
+          "comment": "// this is a comment",
+      
+          "match": "//.*$",
+          "name": "comment.line.k"
+      },
+      "comments": {
+          "comment": "/* comment */ and // comment",
+      
+          "patterns": [
+              {"include": "#line_comment"},
+              {"include": "#block_comment"}
+          ]
+      },
+      "strings": {
+          "match": "\"([^\"\\\\]*(\\\\.)?)*\"",
+          "name": "string.value.quoted.double.k"
+      },
+      "strings_or_comments": {
+          "patterns": [
+              {"include": "#comments"},
+              {"include": "#strings"}
+          ]
+      },
+      "attribute_name": {
+          "comment": "Is 'amb' really an attribute?",
+          "match": "\\b(strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro|macro-rec|token|autoReject|noAutoReject|structural|latex|binder|klabel|symbol|amb|hook|unit|function|functional|result|assoc|comm|idem|element|format|smtlib|anywhere|context|smt-hook|owise|label|hybrid|constructor)\\b",
+          "name": "entity.name.attribute.k"
+      },
+      "attributes": {
+          "comment": "[label(\"name\"), hook]",
+      
+          "begin": "(\\[)(?=[^\\[])",
+          "beginCaptures":  {
+              "1": {"name": "punctuation.attribute.k"}
+          },
+          "end": "(\\])",
+          "endCaptures":  {
+              "1": {"name": "punctuation.attribute.k"}
+          },
+      
+          "name": "section.attribute.k",
+          "patterns": [
+              {"include": "#strings_or_comments"},
+              {"include": "#attribute_name"}
+          ]
+      },
+      "keywords": {
+          "match": "\\b(module|endmodule|symbol|hooked-symbol|sort|hooked-sort|import|axiom|claim|alias|where)\\b",
+          "name": "keyword.stmt.k"
+      },
+      "operators": {
+          "match": "\\\\(top|bottom|not|and|or|implies|iff|exists|forall|mu|nu|ceil|floor|equals|in|next|rewrites|dv)\\b",
+          "name": "keyword.operator.k"
+      },
+      "punctuation": {
+          "match": "\\(|\\)|\\[|\\]|\\{|\\}|,",
+          "name": "punctuation.separator.k"
+      }
+  }
+}

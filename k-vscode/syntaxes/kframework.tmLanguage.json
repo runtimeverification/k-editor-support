@@ -1,150 +1,560 @@
 {
     "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
     "name": "kframework",
+    "scopeName": "source.k",
     "patterns": [
-        { "include": "#module" },
-        { "include": "#requireSource" },
-        { "include": "#string" },
-        { "include": "#comment" }
+      {"include": "#strings_or_comments"},
+      {
+        "comment": "require \"file-name\"",
+  
+        "begin": "\\b(require|requires)\\b",
+        "beginCaptures": {
+          "0": {"name": "keyword.control.requires.k"}
+        },
+  
+        "end": "(?=(\\b(require|requires|module)\\b))",
+  
+        "name": "section.require.k",
+        "patterns": [
+          {"include": "#strings_or_comments"}
+        ]
+      },
+      {
+        "comment": "module NAME [attributes] .... endmodule",
+  
+        "begin": "^\\s*(module)\\s+([^\\s]+)(?=[^a-zA-Z-])\\s*((?:\\[[^\\[\\]]*\\])?)",
+        "beginCaptures": {
+          "1": {"name": "keyword.module.k"},
+          "2": {"name": "entity.name.section.modulename.k"},
+          "3": {
+            "name": "section.module.attributes.k",
+            "patterns": [
+              {"include": "#strings_or_comments"},
+              {"include": "#attributes"}
+            ]
+          }
+        },
+  
+        "end": "\\bendmodule\\b",
+        "endCaptures": {
+          "0": {
+            "name": "keyword.module.k"
+          }
+        },
+  
+        "name": "section.module.k",
+  
+        "patterns": [
+          {"include": "#strings_or_comments"},
+          {
+            "comment": "import MODULE-NAME",
+  
+            "begin": "\\b(import[s]?\\b\\s*(private|public)?)\\s+([^\\s]+)\\s*$",
+            "beginCaptures": {
+              "1": {"name": "keyword.imports.k"},
+              "2": {
+                "name": "entity.name.namespace.k",
+                "patterns": [
+                  {"include": "#strings_or_comments"}
+                ]
+              }
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.imports.k",
+  
+            "patterns": [
+              {"include": "#strings_or_comments"}
+            ]
+          },
+          {
+            "comment": "rule [label]: left => right [attributes]",
+  
+            "begin": "\\b(rule|claim)\\s*(\\[)([^\\[\\]]*)(\\])(:)",
+            "beginCaptures": {
+              "1": {"name": "keyword.stmt.k"},
+              "2": {"name": "punctuation.rule.context.k"},
+              "3": {"name": "entity.name.context.k"},
+              "4": {"name": "punctuation.rule.context.k"},
+              "5": {"name": "keyword.rule.punctuation.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.rule.k",
+  
+            "patterns": [
+              {"include": "#rule_patterns"}
+            ]
+          },
+          {
+            "comment": "rule left => right [attributes]",
+            "begin": "\\brule|claim\\b",
+  
+            "beginCaptures": {
+              "0": {"name": "keyword.rule.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.rule.k",
+  
+            "patterns": [
+              {"include": "#rule_patterns"}
+            ]
+          },
+          {
+            "comment": "syntax priority a > b c > d // Do I need the punctuation pattern?",
+  
+            "begin": "\\b(syntax\\s+(priority|priorities))\\b",
+            "beginCaptures": {
+              "0": {"name": "keyword.stmt.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.syntax.k",
+  
+            "patterns": [
+              {"include": "#strings_or_comments"},
+              {"include": "#attributes"},
+              {
+                "match": ">",
+                "name": "keyword.syntax.punctuation.k"
+              },
+              {"include": "#punctuation"}
+            ]
+          },
+          {
+            "comment": "syntax associativity left a b // Do I need the punctuation pattern?",
+  
+            "begin": "\\b(syntax\\s+(associativity\\s+)?(left|right|non-assoc))\\b",
+            "beginCaptures": {
+              "0": {"name": "keyword.stmt.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.syntax.k",
+  
+            "patterns": [
+              {"include": "#strings_or_comments"},
+              {"include": "#attributes"},
+              {"include": "#punctuation"}
+            ]
+          },
+          {
+            "comment": "syntax Sort ::= thing | thing [attributes]",
+  
+            "begin": "\\b(syntax)\\b",
+            "beginCaptures": {
+              "0": {"name": "keyword.stmt.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.syntax.k",
+  
+            "patterns": [
+              {"include": "#strings_or_comments"},
+              {"include": "#attributes"},
+              {
+                "comment": "Need to figure out how to use the captures here.",
+                "match": "(>)\\s*(left|right|non-assoc)\\s*(:)",
+                "name": "keyword.syntax.punctuation.k"
+              },
+              {
+                "match": "::=|>|\\|",
+                "name": "keyword.syntax.punctuation.k"
+              },
+              {"include": "#predefined_sorts"},
+              {"include": "#punctuation"}
+            ]
+          },
+          {
+            "comment": "context alias [rval]: elaborate(HERE) [result(Resolved), context(elaborate)]  // Can it have 'requires'?",
+  
+            "begin": "\\b(context)\\s+(alias)\\s*(\\[)([^\\]]*)(\\])(:)",
+            "beginCaptures": {
+              "1": {"name": "keyword.stmt.k"},
+              "2": {"name": "keyword.context.k"},
+              "3": {"name": "keyword.context.punctuation.k"},
+              "4": {"name": "entity.name.context-alias.k"},
+              "5": {"name": "keyword.context.punctuation.k"},
+              "6": {"name": "keyword.context.punctuation.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.context.k",
+  
+            "patterns": [
+              {"include": "#context_alias_configuration_patterns"},
+              {"include": "#hole_here"}
+            ]
+          },
+          {
+            "comment": "context term(HOLE)",
+  
+            "begin": "\\b(context)\\b",
+            "beginCaptures": {
+              "0": {"name": "keyword.stmt.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.context.k",
+  
+            "patterns": [
+              {"include": "#rule_patterns"},
+              {"include": "#hole_here"}
+            ]
+          },
+          {
+            "comment": "configuration <thing></thing>",
+  
+            "begin": "\\b(configuration)\\b",
+            "beginCaptures": {
+              "0": {"name": "keyword.stmt.k"}
+            },
+  
+            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+  
+            "name": "section.configuration.k",
+  
+            "patterns": [
+              {"include": "#context_alias_configuration_patterns"}
+            ]
+          }
+        ]
+      }
     ],
     "repository": {
-        "comment": {
+      "block_comment": {
+        "comment": "/* this is a comment */",
+  
+        "begin": "/\\*",
+        "end": "\\*/",
+  
+        "name": "comment.block.k"
+      },
+      "line_comment": {
+        "comment": "// this is a comment",
+  
+        "match": "//.*$",
+        "name": "comment.line.k"
+      },
+      "comments": {
+        "comment": "/* comment */ and // comment",
+  
+        "patterns": [
+          {"include": "#line_comment"},
+          {"include": "#block_comment"}
+        ]
+      },
+      "strings": {
+        "match": "\"([^\"\\\\]*(\\\\.)?)*\"",
+        "name": "string.value.quoted.double.k"
+      },
+      "strings_regexp": {
+        "match": "r\"([^\"\\\\]*(\\\\.)?)*\"",
+        "name": "string.regexp.quoted.double.k"
+      },
+      "strings_or_comments": {
+        "patterns": [
+          {"include": "#comments"},
+          {"include": "#strings"},
+          {"include": "#strings_regexp"}
+        ]
+      },
+      "attribute_name": {
+        "comment": "Is 'amb' really an attribute?",
+        "match": "\\b(strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro|macro-rec|token|structural|latex|binder|klabel|symbol|hook|unit|function|total|result|assoc|comm|idem|element|format|smtlib|anywhere|context|smt-hook|smt-lemma|owise|label|hybrid|heat|cool|trusted|simplification|priority|concrete|symbol|symbolic|no-evaluators|injective)\\b",
+        "name": "entity.name.attribute.k"
+      },
+      "attributes": {
+        "comment": "[label(\"name\"), hook]",
+  
+        "begin": "(\\[)(?=[^\\[])",
+        "beginCaptures":  {
+          "1": {"name": "punctuation.attribute.k"}
+        },
+        "end": "(\\])",
+        "endCaptures":  {
+          "1": {"name": "punctuation.attribute.k"}
+        },
+  
+        "name": "section.attribute.k",
+        "patterns": [
+          {"include": "#strings_or_comments"},
+          {"include": "#attribute_name"}
+        ]
+      },
+      "k_quote": {
+        "match": "`[^`]+`",
+        "name": "entity.name.quoted-klabel.k"
+      },
+      "context_alias_configuration_patterns": {
+        "patterns": [
+          {"include": "#strings_or_comments"},
+          {"include": "#attributes"},
+          {"include": "#constant"},
+          {"include": "#rule_keywords"},
+          {"include": "#operators"},
+          {"include": "#predefined"},
+          {"include": "#punctuation"},
+          {"include": "#configuration_tags"},
+          {"include": "#user_operators_low_priority"},
+          {"include": "#k_quote"},
+          {
+            "match": "\\brequires\\b",
+            "name": "keyword.control.k"
+          }
+        ]
+      },
+      "rule_patterns": {
+        "patterns": [
+          {"include": "#strings_or_comments"},
+          {
+            "comment": "[[ left => right ]] <cell> ... </cell>",
+  
+            "begin": "\\[\\[",
+            "beginCaptures":  {
+              "0": {"name": "punctuation.function-with-configuration.k"}
+            },
+            "end": "\\]\\]",
+  
+            "name": "section.function-with-configuration.k",
             "patterns": [
-                {
-                    "name": "comment.block.k",
-                    "begin": "/\\*",
-                    "end": "\\*/"
-                },
-                {
-                    "name": "comment.line.k",
-                    "begin": "//",
-                    "end": "$\\n?"
-                }
+              {"include": "#rule_patterns"}
             ]
+          },
+          {"include": "#map_operators"},
+          {"include": "#attributes"},
+          {"include": "#constant"},
+          {"include": "#rule_keywords"},
+          {"include": "#operators"},
+          {"include": "#predefined"},
+          {"include": "#punctuation"},
+          {
+            "match": "=>",
+            "name": "keyword.syntax.k"
+          },
+          {
+            "match": "\\b(require|requires|ensures|when|proves)\\b",
+            "name": "keyword.control.k"
+          },
+          {"include": "#configuration_tags"},
+          {"include": "#user_operators_low_priority"},
+          {"include": "#k_quote"}
+        ]
+      },
+      "configuration_open_tag": {
+        "comment": "<tag attr=\"value\">",
+        "begin": "(<)\\s*(\\w[\\w\\d\\-\\_]*)",
+        "beginCaptures": {
+          "1": {"name": "punctuation.definition.tag.k"},
+          "2": {"name": "entity.name.tag.k"}
         },
-
-        "requireSource": {
-            "name": "keyword.control.requires.k",
-            "match": "\\b(require[s]?)\\b"
+  
+        "end": "\\s*(>)",
+        "endCaptures": {
+          "1": {"name": "punctuation.definition.tag.k"}
         },
-
-        "keyword": {
-            "patterns": [
-                {
-                    "name": "keyword.control.k",
-                    "match": "\\b(require[s]?)\\b"
-                },
-                {
-                    "name": "keyword.stmt.k",
-                    "match": "\\b(rule|syntax|configuration|context|ensures)\\b"
-                },
-                {
-                    "name": "entity.name.class.k",
-                    "match": "\\b(List|NeList)\\b"
-                },
-                {
-                    "name": "entity.name.type.k",
-                    "match": "\\b(Id|Int|Bool|String|Float|KResult|K|KItem)\\b"
-                },
-                {
-                    "name": "string.regexp.k",
-                    "match": "\\b(owise|anywhere|function|total|avoid|prefer|bracket|non-assoc|strict|seqstrict|left|right|macro|token|latex|binder)\\b"
-                },
-                {
-                    "name": "support.type.property-name.k",
-                    "match": "HOLE"
-                }
-            ]
-        },
-        
-        "string": {
-            "name": "string.quoted.double.k",
-            "begin": "\"",
-            "end": "\"",
-            "patterns": [
-                {
-                    "name": "constant.character.escape.k",
-                    "match": "\\\\."
-                }
-            ]
-        },
-
-        "cell-attr": {
-            "match": "([\\w\\d\\-]+)=(\\\"[^\\\"]*\\\")",
+  
+        "patterns": [
+          {
+            "comment": "attr=\"value\"",
+  
+            "match": "([\\w\\d\\-\\_]+)\\s*\\=\\s*(\".+?\")",
             "captures": {
-                "1": { "name": "entity.other.attribute-name.tag.k" },
-                "2": { "name": "string.quoted.double.k" }
+              "1": {"name": "support.tag.attribute.k"},
+              "2": {"name": "string.value.quoted.double.k"}
             }
-        },
-
-        "cell":{
-            "begin": "(<)\\s*([\\w\\d\\-\\_]+)(\\s*[\\w\\d\\-]+=\\\".*\\\")*\\s*(>)",
-            "beginCaptures": {
-                "1": { "name": "punctuation.definition.tag.k" },
-                "2": { "name": "entity.name.tag.k" },
-                "3": {
-                    "patterns": [
-                        { "include": "#cell-attr" }
-                    ]
-                },
-                "4": { "name": "punctuation.definition.tag.k" }
-            },
-            "end": "(<\\/)\\s*(\\2)\\s*(>)",
-            "endCaptures": {
-                "1": { "name": "punctuation.definition.tag.k" },
-                "2": { "name": "entity.name.tag.k" },
-                "3": { "name": "punctuation.definition.tag.k" }
-            },
-            "patterns": [
-                { "include": "#cell" },
-                { "include": "#constant" }
-            ]
-        },
-
-        "constant":{
-            "patterns": [
-                {
-                    "name": "constant.numeric.k",
-                    "match": "(-|\\.)?\\b[0-9]+(\\.[0-9]+)?\\b"
-                },
-                {
-                    "name": "keyword.boolean.k",
-                    "match": "\\b(true|false)\\b"
-                }
-            ]
-        },
-
-        "syntax": {
-            
-        },
-
-        "imports-stmt": {
-            "match": "(import[s]?)\\s*([\\w\\d\\-_]*)$",
-            "captures": {
-                "1": { "name": "keyword.stmt.k"},
-                "2": { "name": "entity.name.namespace.imports.k" }
-            }
-        },
-
-        "module":{
-            "begin": "(module)\\s*([\\w\\d\\-\\_]+)",
-            "beginCaptures": {
-                "1": { "name": "keyword.module.k" },
-                "2": { "name": "entity.name.namespace.k" }
-            },
-            "end": "(endmodule)",
-            "endCaptures": {
-                "1": { "name": "keyword.module.k" }
-            },
-            "patterns": [
-                { "include": "#cell" },
-                { "include": "#string" },
-                { "include": "#keyword" },
-                { "include": "#constant" },
-                { "include": "#comment" },
-                { "include": "#imports-stmt" }
-            ]
+          }
+        ]
+      },
+      "configuration_closed_tag": {
+        "comment": "</tag>",
+  
+        "match": "(<)\\s*/([\\w\\d\\-\\_]+?)\\s*(>)",
+        "captures": {
+          "1": {"name": "punctuation.definition.tag.k"},
+          "2": {"name": "entity.name.tag.k"},
+          "3": {"name": "punctuation.definition.tag.k"}
         }
-    },
-    "scopeName": "source.k"
-}
+      },
+      "configuration_tags": {
+        "patterns": [
+          {"include": "#configuration_open_tag"},
+          {"include": "#configuration_closed_tag"}
+        ]
+      },
+      "map_operators": {
+        "comment": "map[key <- value]  // The key and the value should not include the full set of rule patterns.",
+        "match": "(\\[)([^\\[]*)(<-)([^\\[]*)(\\])",
+        "captures": {
+          "1": {"name": "punctuation.separator.k"},
+          "2": {
+            "name": "section.rule.map-key.k",
+            "patterns": [
+              {"include": "#rule_patterns"}
+            ]
+          },
+          "3": {"name": "keyword.operator.k"},
+          "4": {
+            "name": "section.rule.map-value.k",
+            "patterns": [
+              {"include": "#rule_patterns"}
+            ]
+          },
+          "5": {"name": "punctuation.separator.k"}
+        }
+      },
+      "generic_operators": {
+        "match": "\\?",
+        "name": "keyword.operator.k"
+      },
+      "equality_operators": {
+        "comment": "==Int",
+        "match": "(==|=/=)(Int|Float|String|MInt|Bool|K)\\b",
+        "name": "keyword.operator.k"
+      },
+      "match_operators": {
+        "comment": ":=K",
+        "match": ":=K|:/=K\\b",
+        "name": "keyword.operator.k"
+      },
+      "comparison_operators": {
+        "comment": "<Int",
+        "match": "(<|<=|>|>=)(Int|Float|String|sMInt|uMInt)\\b",
+        "name": "keyword.operator.k"
+      },
+      "number_operators": {
+        "comment": "+Int",
+        "match": "(\\+|-|\\*)(Int|Float|MInt)\\b",
+        "name": "keyword.operator.k"
+      },
+      "floatint_operators": {
+        "comment": "^Int",
+        "match": "(\\^)(Int|Float)\\b",
+        "name": "keyword.operator.k"
+      },
+      "floatmint_operators": {
+        "match": "(--)(MInt|Float)\\b",
+        "name": "keyword.operator.k"
+      },
+      "signed_operators": {
+        "match": "(/|%)(Int|Float|uMInt|sMInt)\\b",
+        "name": "keyword.operator.k"
+      },
+      "bit_operators": {
+        "match": "(~|<<|&|\\||\\bxor)(Int|MInt)\\b",
+        "name": "keyword.operator.k"
+      },
+      "punctuation_operators": {
+        "match": "(\\^\\%Int|>>Int|\\+String|>>aMInt|>>lMInt)\\b",
+        "name": "keyword.operator.k"
+      },
+      "user_operators": {
+        "match": "==|=/=|!=|<=|>=|\\+|\\+\\+|-|--|\\*|\\^|/|%|~|<<|>>|&|\\||!|=",
+        "name": "keyword.operator.k"
+      },
+      "user_operators_low_priority": {
+        "match": "<|>",
+        "name": "keyword.operator.k"
+      },
+      "int_letter_operators": {
+        "match": "\\b(div|mod|divides)Int\\b",
+        "name": "keyword.operator.k"
+      },
+      "bool_letter_operators": {
+        "match": "\\b(not|and|andThen|xor|or|orElse|implies)Bool\\b",
+        "name": "keyword.operator.k"
+      },
+      "list_map_operators": {
+        "match": "~>|\\|->",
+        "name": "keyword.operator.k"
+      },
+      "operators": {
+        "patterns": [
+          {"include": "#generic_operators"},
+          {"include": "#match_operators"},
+          {"include": "#equality_operators"},
+          {"include": "#comparison_operators"},
+          {"include": "#number_operators"},
+          {"include": "#floatint_operators"},
+          {"include": "#floatmint_operators"},
+          {"include": "#signed_operators"},
+          {"include": "#list_map_operators"},
+          {"include": "#bit_operators"},
+          {"include": "#punctuation_operators"},
+          {"include": "#int_letter_operators"},
+          {"include": "#bool_letter_operators"},
+          {"include": "#user_operators"}
+        ]
+      },
+      "numeric_constant": {
+        "match": "(-|\\.)?\\b[0-9]+(\\.[0-9]+)?\\b",
+        "name": "constant.numeric.k"
+      },
+      "bool_constant": {
+        "match": "\\b(true|false)\\b",
+        "name": "keyword.boolean.k"
+      },
+      "constant": {
+        "patterns": [
+          {"include": "#numeric_constant"},
+          {"include": "#bool_constant"}
+        ]
+      },
+      "keyword_punctuation": {
+        "match": "(=>|\\.\\.\\.|::=|::|:>|:)",
+        "name": "keyword.reserved.k"
+      },
+      "ml_keywords": {
+        "match": "(#True|#False|#And|#Or|#Not|#Implies|#Iff|#Equals|#Ceil|#Floor|#Exists|#Forall|#Rewrites|#AG|#wEF\\b)",
+        "name": "keyword.control.flow.k"
+      },
+      "other_keywords": {
+        "comment": "is .Bag a keyword or an operator?",
+        "match": "(#as|\\.Bag|#fun|#if|#then|#else|#fi)\\b",
+        "name": "keyword.control.flow.k"
+      },
+      "rule_keywords": {
+        "patterns": [
+          {"include": "#keyword_punctuation"},
+          {"include": "#ml_keywords"},
+          {"include": "#other_keywords"}
+        ]
+      },
+      "punctuation": {
+        "match": "\\(|\\)|\\[|\\]|\\{|\\}|,",
+        "name": "punctuation.separator.k"
+      },
+      "predefined_constants": {
+        "match": "(\\.List|\\.Map|\\.Set|\\.Bag|\\.K|\\.KList|\\bundef)\\b",
+        "name": "constant.numeric.k"
+      },
+      "predefined_sorts": {
+        "match": "\\b(Id|Int|Bool|String|MInt|Float|List|Map|Set|Bag|Token|Lexer|Kresult|KItem|K|KList|KLabel)\\b",
+        "name": "entity.name.type.k"
+      },
+      "predefined_symbols": {
+        "match": "\\b(ListItem|SetItem|BagItem|keys|in|in_keys)\\b",
+        "name": "support.symbol.k"
+      },
+      "predefined": {
+        "patterns": [
+          {"include": "#predefined_constants"},
+          {"include": "#predefined_sorts"},
+          {"include": "#predefined_symbols"}
+        ]
+      },
+      "hole_here": {
+        "match": "HOLE|HERE",
+        "name": "support.type.property-name.k"
+      }
+    }
+  }
