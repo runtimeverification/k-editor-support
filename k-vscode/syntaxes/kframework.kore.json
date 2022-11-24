@@ -66,11 +66,11 @@
       },
       "keywords": {
           "match": "\\b(module|endmodule|symbol|hooked-symbol|sort|hooked-sort|import|axiom|claim|alias|where)\\b",
-          "name": "entity.name.attribute.k"
+          "name": "keyword.stmt.k"
       },
       "operators": {
           "match": "\\\\(top|bottom|not|and|or|implies|iff|exists|forall|mu|nu|ceil|floor|equals|in|next|rewrites|dv)\\b",
-          "name": "entity.name.attribute.k"
+          "name": "keyword.operator.k"
       },
       "punctuation": {
           "match": "\\(|\\)|\\[|\\]|\\{|\\}|,",
