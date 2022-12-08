@@ -2,14 +2,14 @@
     "name": "k-syntax",
     "displayName": "k-syntax",
     "description": "k syntax demo",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "icon": "k-logo.png",
     "author": {
-        "name": "Pumpk1n"
+        "name": "RuntimeVerification"
     },
-    "publisher": "Pumpk1n",
+    "publisher": "RuntimeVerification",
     "repository": {
-        "url": "https://github.com/PumpkinDemo/k-syntax-vscode"
+        "url": "https://github.com/kframework/k-editor-support/tree/master/k-vscode"
     },
     "engines": {
         "vscode": "^1.71.0"
@@ -36,7 +36,15 @@
             {
                 "language": "kframework",
                 "scopeName": "source.k",
-                "path": "./syntaxes/kframework.tmLanguage.json"
+                "path": "./syntaxes/kframework.k.json"
+            },
+            {
+                "scopeName": "markdown.k.codeblock",
+                "path": "./syntaxes/codeblock.json",
+                "injectTo": ["text.html.markdown"],
+                "embeddedLanguages": {
+                  "meta.embedded.block.k": "kframework"
+                }
             },
             {
                 "language": "kore",
