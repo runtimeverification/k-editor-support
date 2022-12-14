@@ -36,11 +36,11 @@
             {
                 "language": "kframework",
                 "scopeName": "source.k",
-                "path": "./syntaxes/kframework.k.json"
+                "path": "./syntaxes/k.tmLanguage.json"
             },
             {
                 "scopeName": "markdown.k.codeblock",
-                "path": "./syntaxes/codeblock.json",
+                "path": "./syntaxes/k.codeblock.tmLanguage.json",
                 "injectTo": ["text.html.markdown"],
                 "embeddedLanguages": {
                   "meta.embedded.block.k": "kframework"
@@ -49,7 +49,7 @@
             {
                 "language": "kore",
                 "scopeName": "source.kore",
-                "path": "./syntaxes/kframework.kore.json"
+                "path": "./syntaxes/kore.tmLanguage.json"
             }
       ]
     }
