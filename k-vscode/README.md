@@ -2,7 +2,8 @@
 
 Kframework syntax highlight for VSCode.
 
-The official extension maintained by RuntimeVerification.
+The official extension maintained by Runtime Verification Inc.
+and comunity contributors.
 
 ### Build & Install
 
