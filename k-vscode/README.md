@@ -1,10 +1,8 @@
 # K-syntax
 
-Kframework syntax highlight for vscode.
+Kframework syntax highlight for VSCode.
 
-The official extension seems a little poor...
-
-In building...
+The official extension maintained by RuntimeVerification.
 
 ### Build & Install
 

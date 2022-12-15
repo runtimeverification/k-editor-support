@@ -3,7 +3,7 @@
     "name": "kframework",
     "scopeName": "source.k",
     "patterns": [
-      {"include": "#strings_or_comments"},
+      {"include": "#comments"},
       {"include": "#sentences"},
       {
         "comment": "require \"file-name\"",
@@ -30,7 +30,7 @@
           "3": {
             "name": "section.module.attributes.k",
             "patterns": [
-              {"include": "#strings_or_comments"},
+              {"include": "#comments"},
               {"include": "#attributes"}
             ]
           }
