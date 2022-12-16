@@ -5,10 +5,8 @@ Kframework syntax highlight for VSCode.
 The official extension maintained by Runtime Verification Inc.
 and comunity contributors.
 
-### Build & Install
+### Features
 
-```bash
-vsce package
-```
+- Syntax highlighting for .k files and code blocks inside markdown files
 
-vscode -> extensions -> install from VSIX
+- K framework is an open source project and you can view the source code here: https://github.com/runtimeverification/k

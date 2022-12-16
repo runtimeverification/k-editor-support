@@ -1,11 +1,13 @@
 {
     "name": "k-syntax",
-    "displayName": "k-syntax",
-    "description": "k syntax demo",
+    "displayName": "K framework",
+    "description": "Syntax highlighting for the K language",
     "version": "0.0.2",
     "icon": "k-logo.png",
     "author": {
-        "name": "RuntimeVerification"
+        "name": "RuntimeVerification",
+        "email": "radu.mereuta@runtimeverification.com",
+        "url": "https://github.com/radumereuta"
     },
     "publisher": "RuntimeVerification",
     "repository": {
