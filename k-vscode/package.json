@@ -9,7 +9,7 @@
     },
     "publisher": "RuntimeVerification",
     "repository": {
-        "url": "https://github.com/kframework/k-editor-support/tree/master/k-vscode"
+        "url": "https://github.com/runtimeverification/k-editor-support/tree/master/k-vscode"
     },
     "engines": {
         "vscode": "^1.71.0"
