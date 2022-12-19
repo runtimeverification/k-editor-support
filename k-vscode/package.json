@@ -1,15 +1,17 @@
 {
     "name": "k-syntax",
-    "displayName": "k-syntax",
-    "description": "k syntax demo",
-    "version": "0.0.1",
+    "displayName": "K framework",
+    "description": "Syntax highlighting for the K language",
+    "version": "0.0.3",
     "icon": "k-logo.png",
     "author": {
-        "name": "Pumpk1n"
+        "name": "Runtime Verification",
+        "email": "radu.mereuta@runtimeverification.com",
+        "url": "https://github.com/radumereuta"
     },
-    "publisher": "Pumpk1n",
+    "publisher": "RuntimeVerification",
     "repository": {
-        "url": "https://github.com/PumpkinDemo/k-syntax-vscode"
+        "url": "https://github.com/runtimeverification/k-editor-support/tree/master/k-vscode"
     },
     "engines": {
         "vscode": "^1.71.0"
@@ -36,12 +38,20 @@
             {
                 "language": "kframework",
                 "scopeName": "source.k",
-                "path": "./syntaxes/kframework.tmLanguage.json"
+                "path": "./syntaxes/k.tmLanguage.json"
+            },
+            {
+                "scopeName": "markdown.k.codeblock",
+                "path": "./syntaxes/k.codeblock.tmLanguage.json",
+                "injectTo": ["text.html.markdown"],
+                "embeddedLanguages": {
+                  "meta.embedded.block.k": "kframework"
+                }
             },
             {
                 "language": "kore",
                 "scopeName": "source.kore",
-                "path": "./syntaxes/kframework.kore.json"
+                "path": "./syntaxes/kore.tmLanguage.json"
             }
       ]
     }

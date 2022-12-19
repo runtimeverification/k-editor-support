@@ -3,7 +3,8 @@
     "name": "kframework",
     "scopeName": "source.k",
     "patterns": [
-      {"include": "#strings_or_comments"},
+      {"include": "#comments"},
+      {"include": "#sentences"},
       {
         "comment": "require \"file-name\"",
   
@@ -29,7 +30,7 @@
           "3": {
             "name": "section.module.attributes.k",
             "patterns": [
-              {"include": "#strings_or_comments"},
+              {"include": "#comments"},
               {"include": "#attributes"}
             ]
           }
@@ -46,191 +47,207 @@
   
         "patterns": [
           {"include": "#strings_or_comments"},
-          {
-            "comment": "import MODULE-NAME",
-  
-            "begin": "\\b(import[s]?\\b\\s*(private|public)?)\\s+([^\\s]+)\\s*$",
-            "beginCaptures": {
-              "1": {"name": "keyword.imports.k"},
-              "2": {
-                "name": "entity.name.namespace.k",
-                "patterns": [
-                  {"include": "#strings_or_comments"}
-                ]
-              }
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.imports.k",
-  
-            "patterns": [
-              {"include": "#strings_or_comments"}
-            ]
-          },
-          {
-            "comment": "rule [label]: left => right [attributes]",
-  
-            "begin": "\\b(rule|claim)\\s*(\\[)([^\\[\\]]*)(\\])(:)",
-            "beginCaptures": {
-              "1": {"name": "keyword.stmt.k"},
-              "2": {"name": "punctuation.rule.context.k"},
-              "3": {"name": "entity.name.context.k"},
-              "4": {"name": "punctuation.rule.context.k"},
-              "5": {"name": "keyword.rule.punctuation.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.rule.k",
-  
-            "patterns": [
-              {"include": "#rule_patterns"}
-            ]
-          },
-          {
-            "comment": "rule left => right [attributes]",
-            "begin": "\\brule|claim\\b",
-  
-            "beginCaptures": {
-              "0": {"name": "keyword.rule.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.rule.k",
-  
-            "patterns": [
-              {"include": "#rule_patterns"}
-            ]
-          },
-          {
-            "comment": "syntax priority a > b c > d // Do I need the punctuation pattern?",
-  
-            "begin": "\\b(syntax\\s+(priority|priorities))\\b",
-            "beginCaptures": {
-              "0": {"name": "keyword.stmt.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.syntax.k",
-  
-            "patterns": [
-              {"include": "#strings_or_comments"},
-              {"include": "#attributes"},
-              {
-                "match": ">",
-                "name": "keyword.syntax.punctuation.k"
-              },
-              {"include": "#punctuation"}
-            ]
-          },
-          {
-            "comment": "syntax associativity left a b // Do I need the punctuation pattern?",
-  
-            "begin": "\\b(syntax\\s+(associativity\\s+)?(left|right|non-assoc))\\b",
-            "beginCaptures": {
-              "0": {"name": "keyword.stmt.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.syntax.k",
-  
-            "patterns": [
-              {"include": "#strings_or_comments"},
-              {"include": "#attributes"},
-              {"include": "#punctuation"}
-            ]
-          },
-          {
-            "comment": "syntax Sort ::= thing | thing [attributes]",
-  
-            "begin": "\\b(syntax)\\b",
-            "beginCaptures": {
-              "0": {"name": "keyword.stmt.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.syntax.k",
-  
-            "patterns": [
-              {"include": "#strings_or_comments"},
-              {"include": "#attributes"},
-              {
-                "comment": "Need to figure out how to use the captures here.",
-                "match": "(>)\\s*(left|right|non-assoc)\\s*(:)",
-                "name": "keyword.syntax.punctuation.k"
-              },
-              {
-                "match": "::=|>|\\|",
-                "name": "keyword.syntax.punctuation.k"
-              },
-              {"include": "#predefined_sorts"},
-              {"include": "#punctuation"}
-            ]
-          },
-          {
-            "comment": "context alias [rval]: elaborate(HERE) [result(Resolved), context(elaborate)]  // Can it have 'requires'?",
-  
-            "begin": "\\b(context)\\s+(alias)\\s*(\\[)([^\\]]*)(\\])(:)",
-            "beginCaptures": {
-              "1": {"name": "keyword.stmt.k"},
-              "2": {"name": "keyword.context.k"},
-              "3": {"name": "keyword.context.punctuation.k"},
-              "4": {"name": "entity.name.context-alias.k"},
-              "5": {"name": "keyword.context.punctuation.k"},
-              "6": {"name": "keyword.context.punctuation.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.context.k",
-  
-            "patterns": [
-              {"include": "#context_alias_configuration_patterns"},
-              {"include": "#hole_here"}
-            ]
-          },
-          {
-            "comment": "context term(HOLE)",
-  
-            "begin": "\\b(context)\\b",
-            "beginCaptures": {
-              "0": {"name": "keyword.stmt.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.context.k",
-  
-            "patterns": [
-              {"include": "#rule_patterns"},
-              {"include": "#hole_here"}
-            ]
-          },
-          {
-            "comment": "configuration <thing></thing>",
-  
-            "begin": "\\b(configuration)\\b",
-            "beginCaptures": {
-              "0": {"name": "keyword.stmt.k"}
-            },
-  
-            "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
-  
-            "name": "section.configuration.k",
-  
-            "patterns": [
-              {"include": "#context_alias_configuration_patterns"}
-            ]
-          }
+          {"include": "#sentences"}
         ]
       }
     ],
     "repository": {
+      "sentences": {
+        "patterns": [
+          {"include": "#sentence_import"},
+          {"include": "#sentence_syntax"},
+          {"include": "#sentence_rule"},
+          {"include": "#sentence_label_rule"},
+          {"include": "#sentence_syntax_priority"},
+          {"include": "#sentence_syntax_assoc"},
+          {"include": "#sentence_context_alias"},
+          {"include": "#sentence_context"},
+          {"include": "#sentence_config"}
+        ]
+      },
+      "sentence_import": {
+        "comment": "import MODULE-NAME",
+
+        "begin": "\\b(import[s]?\\b\\s*(private|public)?)\\s+([^\\s]+)\\s*$",
+        "beginCaptures": {
+          "1": {"name": "keyword.imports.k"},
+          "2": {
+            "name": "entity.name.namespace.k",
+            "patterns": [
+              {"include": "#strings_or_comments"}
+            ]
+          }
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.imports.k",
+
+        "patterns": [
+          {"include": "#strings_or_comments"}
+        ]
+      },
+      "sentence_label_rule": {
+        "comment": "rule [label]: left => right [attributes]",
+
+        "begin": "\\b(rule|claim)\\s*(\\[)([^\\[\\]]*)(\\])(:)",
+        "beginCaptures": {
+          "1": {"name": "keyword.stmt.k"},
+          "2": {"name": "punctuation.rule.context.k"},
+          "3": {"name": "entity.name.context.k"},
+          "4": {"name": "punctuation.rule.context.k"},
+          "5": {"name": "keyword.rule.punctuation.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.rule.k",
+
+        "patterns": [
+          {"include": "#rule_patterns"}
+        ]
+      },
+      "sentence_rule": {
+        "comment": "rule left => right [attributes]",
+        "begin": "\\brule|claim\\b",
+
+        "beginCaptures": {
+          "0": {"name": "keyword.rule.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.rule.k",
+
+        "patterns": [
+          {"include": "#rule_patterns"}
+        ]
+      },
+      "sentence_syntax_priority": {
+        "comment": "syntax priority a > b c > d // Do I need the punctuation pattern?",
+
+        "begin": "\\b(syntax\\s+(priority|priorities))\\b",
+        "beginCaptures": {
+          "0": {"name": "keyword.stmt.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.syntax.k",
+
+        "patterns": [
+          {"include": "#strings_or_comments"},
+          {"include": "#attributes"},
+          {
+            "match": ">",
+            "name": "keyword.syntax.punctuation.k"
+          },
+          {"include": "#punctuation"}
+        ]
+      },
+      "sentence_syntax_assoc": {
+        "comment": "syntax associativity left a b // Do I need the punctuation pattern?",
+
+        "begin": "\\b(syntax\\s+(associativity\\s+)?(left|right|non-assoc))\\b",
+        "beginCaptures": {
+          "0": {"name": "keyword.stmt.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.syntax.k",
+
+        "patterns": [
+          {"include": "#strings_or_comments"},
+          {"include": "#attributes"},
+          {"include": "#punctuation"}
+        ]
+      },
+      "sentence_syntax": {
+        "comment": "syntax Sort ::= thing | thing [attributes]",
+
+        "begin": "\\b(syntax)\\b",
+        "beginCaptures": {
+          "0": {"name": "keyword.stmt.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.syntax.k",
+
+        "patterns": [
+          {"include": "#strings_or_comments"},
+          {"include": "#attributes"},
+          {
+            "comment": "Need to figure out how to use the captures here.",
+            "match": "(>)\\s*(left|right|non-assoc)\\s*(:)",
+            "name": "keyword.syntax.punctuation.k"
+          },
+          {
+            "match": "::=|>|\\|",
+            "name": "keyword.syntax.punctuation.k"
+          },
+          {"include": "#predefined_sorts"},
+          {"include": "#punctuation"}
+        ]
+      },
+      "sentence_context_alias": {
+        "comment": "context alias [rval]: elaborate(HERE) [result(Resolved), context(elaborate)]  // Can it have 'requires'?",
+
+        "begin": "\\b(context)\\s+(alias)\\s*(\\[)([^\\]]*)(\\])(:)",
+        "beginCaptures": {
+          "1": {"name": "keyword.stmt.k"},
+          "2": {"name": "keyword.context.k"},
+          "3": {"name": "keyword.context.punctuation.k"},
+          "4": {"name": "entity.name.context-alias.k"},
+          "5": {"name": "keyword.context.punctuation.k"},
+          "6": {"name": "keyword.context.punctuation.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.context.k",
+
+        "patterns": [
+          {"include": "#context_alias_configuration_patterns"},
+          {"include": "#hole_here"}
+        ]
+      },
+      "sentence_context": {
+        "comment": "context term(HOLE)",
+
+        "begin": "\\b(context)\\b",
+        "beginCaptures": {
+          "0": {"name": "keyword.stmt.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.context.k",
+
+        "patterns": [
+          {"include": "#rule_patterns"},
+          {"include": "#hole_here"}
+        ]
+      },
+      "sentence_config": {
+        "comment": "configuration <thing></thing>",
+
+        "begin": "\\b(configuration)\\b",
+        "beginCaptures": {
+          "0": {"name": "keyword.stmt.k"}
+        },
+
+        "end": "(?=(\\b(import|imports|syntax|context|configuration|rule|claim|endmodule)\\b))",
+
+        "name": "section.configuration.k",
+
+        "patterns": [
+          {"include": "#context_alias_configuration_patterns"}
+        ]
+      },
+
+
       "block_comment": {
         "comment": "/* this is a comment */",
   
