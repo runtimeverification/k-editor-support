@@ -1,7 +1,7 @@
 # A collection of editor extensions for the K Framework
 
 These extensions are built by the community or by
-RuntimeVerification. At this moment these only offer limited syntax
+Runtime Verification. At this moment they only offer limited syntax
 highlighting.
 
 Check out each directory for instructions on how to

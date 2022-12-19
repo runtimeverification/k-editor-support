@@ -9,4 +9,5 @@ and comunity contributors.
 
 - Syntax highlighting for .k files and code blocks inside markdown files
 
-- K framework is an open source project and you can view the source code here: https://github.com/runtimeverification/k
+- The K framework is an open source project and you can view the source code
+here: https://github.com/runtimeverification/k
