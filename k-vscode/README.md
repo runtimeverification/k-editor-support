@@ -11,3 +11,6 @@ and comunity contributors.
 
 - The K framework is an open source project and you can view the source code
 here: https://github.com/runtimeverification/k
+
+- Integration with the `klsp` that provides limited support for code completion
+  and error reporting for syntax errors. Requires K v5.5.60 or higher.

@@ -2,7 +2,7 @@
     "name": "k-syntax",
     "displayName": "K framework",
     "description": "Syntax highlighting for the K language",
-    "version": "0.0.3",
+    "version": "0.1.0",
     "icon": "k-logo.png",
     "author": {
         "name": "Runtime Verification",
@@ -28,8 +28,9 @@
             {
                 "id": "kframework",
                 "aliases": [
-                    "k",
-                    "kframework"
+                    "K Framework",
+                    "kframework",
+                    "k"
                 ],
                 "extensions": [
                     ".k"
