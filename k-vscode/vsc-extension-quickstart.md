@@ -9,13 +9,14 @@
 
 ## Get up and running straight away
 
-* Make sure the language configuration settings in `language-configuration.json` are accurate.
+* Type `npm install` in the a terminal window inside the `k-vscode` directory to fetch the TypeScript libraries.
 * Press `F5` to open a new window with your extension loaded.
 * Create a new file with a file name suffix matching your language.
 * Verify that syntax highlighting works and that the language configuration settings are working.
 * Run your command from the command palette by pressing (`Ctrl+Shift+P` or `Cmd+Shift+P` on Mac) and typing `Hello World`.
 * Set breakpoints in your code inside `src/extension.ts` to debug your extension.
 * Find output from your extension in the debug console.
+* To see the extensions log, go to the Output window and select the `K framework` channel.
 
 ## Make changes
 

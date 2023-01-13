@@ -1,6 +1,6 @@
 # K-syntax
 
-Kframework syntax highlight for VSCode.
+K framework syntax highlight for VSCode.
 
 The official extension maintained by Runtime Verification Inc.
 and comunity contributors.
@@ -19,3 +19,15 @@ here: https://github.com/runtimeverification/k
   Language Mode in the bottom right. To make this the default behavior
   you can modify the Workspace Settings by adding
   `"files.associations": { "*.md": "kframework" }` in your `package.json`.
+
+### Contribute
+
+- Download this extension from https://github.com/runtimeverification/k-editor-support
+
+- Import the `k-vscode` directory in VSCode
+
+- Type `npm install` in the Terminal window to fetch the Node.js dependencies.
+
+- Launch with `F5`
+
+- For more details read `vsc-extension-quickstart.md`
