@@ -1,6 +1,6 @@
 # Change Log
 
-All notable changes to the "K Framework" extension will be documented in this file.
+All notable changes to the "K framework" extension will be documented in this file.
 
 ## [Unreleased]
 
@@ -12,7 +12,7 @@ All notable changes to the "K Framework" extension will be documented in this fi
 
 ## [0.1.0] - 2023-01-13
 
-- Added support for klsp. Requires the [K Framework](https://github.com/runtimeverification/k) v5.5.60 or higher.
+- Added support for klsp. Requires the [K framework](https://github.com/runtimeverification/k) v5.5.60 or higher.
   This brings realtime code completion and outer parsing syntax error reporting in the editor.
 
 ## [0.0.3] - 2022-12-16
