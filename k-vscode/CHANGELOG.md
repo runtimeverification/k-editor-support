@@ -10,6 +10,9 @@ All notable changes to the "K framework" extension will be documented in this fi
 
 - Full error reporting inside the editor
 
+- Automatic support for klsp inside Markdown files. Right now you have
+  to manually select the Language Mode in the bottom right.
+
 ## [0.1.0] - 2023-01-13
 
 - Added support for klsp. Requires the [K framework](https://github.com/runtimeverification/k) v5.5.60 or higher.

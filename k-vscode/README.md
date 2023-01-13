@@ -14,3 +14,8 @@ here: https://github.com/runtimeverification/k
 
 - Integration with the `klsp` that provides limited support for code completion
   and error reporting for syntax errors. Requires K v5.5.60 or higher.
+
+- To enable `klsp` in Markdown you have to manually select the
+  Language Mode in the bottom right. To make this the default behavior
+  you can modify the Workspace Settings by adding
+  `"files.associations": { "*.md": "kframework" }` in your `package.json`.
