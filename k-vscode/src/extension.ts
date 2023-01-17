@@ -39,11 +39,7 @@ export function activate(context: ExtensionContext) {
         (stateChangeEvent) => {
           if (stateChangeEvent.newState === State.Stopped) {
             window.showErrorMessage(
-              "Failed to initialize the extension"
-            );
-          } else if (stateChangeEvent.newState === State.Running) {
-            window.showInformationMessage(
-              "K extension initialized successfully!"
+              "Failed to initialize the extension. Requires having `klsp` in your path."
             );
           }
         }
