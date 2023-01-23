@@ -2,7 +2,7 @@
     "name": "k-syntax",
     "displayName": "K framework",
     "description": "Syntax highlighting for the K language",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "icon": "k-logo.png",
     "author": {
         "name": "Runtime Verification",
@@ -69,7 +69,18 @@
                 "scopeName": "source.kore",
                 "path": "./syntaxes/kore.tmLanguage.json"
             }
-        ]
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "K framework",
+            "properties": {
+                "kframework.klspPath": {
+                    "type": "string",
+                    "default": "klsp",
+                    "description": "Path to the klsp executable."
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",
