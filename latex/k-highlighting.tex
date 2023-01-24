@@ -17,7 +17,10 @@
 	keywordstyle=[2]\color{knonterminalpurple}\bfseries,
 	keywords=[3]{alias,alias-rec,anywhere,bracket,concrete,context,cool,freshGenerator,function,functional,heat,hook,hybrid,klabel,left,macro,macro-rec,memo,owise,priority,result,right,seqstrict,simplification,smtlib,strict,symbol,token,unboundVariables},	% k annotations
 	keywordstyle=[3]\color{ksyntaxblack}\bfseries,
-	sensitive=false,
+	otherkeywords={<-, =>},
+    keywords=[4]{<-, =>},
+    keywordstyle=[4]\color{ksyntaxblack}\bfseries,
+    sensitive=false,
 	comment=[l][\color{kcomments}]{//}, % comment style
     morecomment=[s][\color{ksyntaxgreen}]{<}{>}, % NOT a comment, easy way to parse k cells
     identifierstyle=\color{knonterminalpurple}, % everything else
