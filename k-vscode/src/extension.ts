@@ -13,7 +13,7 @@ let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
 	const serverOptions: ServerOptions = {
-		command: "klsp",
+		command: workspace.getConfiguration('kframework').get('klspPath') || "klsp",
         options: {},
 	};
 
@@ -39,7 +39,9 @@ export function activate(context: ExtensionContext) {
         (stateChangeEvent) => {
           if (stateChangeEvent.newState === State.Stopped) {
             window.showErrorMessage(
-              "Failed to initialize the extension. Requires having `klsp` in your path."
+              "Failed to initialize the extension. " +
+              "Please provide the path to the `klsp` executable in the extension settings. " +
+              "Trying to start server with cmd: " + serverOptions.command
             );
           }
         }
