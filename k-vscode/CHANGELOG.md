@@ -4,7 +4,7 @@ All notable changes to the "K framework" extension will be documented in this fi
 
 ## [Unreleased]
 
-- Goto definition
+- Full Goto definition
 
 - Workspace navigation
 
@@ -12,6 +12,15 @@ All notable changes to the "K framework" extension will be documented in this fi
 
 - Automatic support for klsp inside Markdown files. Right now you have
   to manually select the Language Mode in the bottom right.
+
+## [0.1.2] - 2023-01-30
+
+- Rename extension name from RuntimeVerification.k-syntax to RuntimeVerification.k-vscode
+  to better encapsulate the scope of the project.
+
+- Require K v5.5.73 or higher. The extension is still going to work but the klsp adds more functionality, like:
+  - Goto definition for imported modules and required files
+  - Contextual completion for keywords, imported modules and syntax with tabstops.
 
 ## [0.1.1] - 2023-01-23
 
