@@ -7,14 +7,14 @@
       {"include": "#sentences"},
       {
         "comment": "require \"file-name\"",
-  
+
         "begin": "\\b(require|requires)\\b",
         "beginCaptures": {
           "0": {"name": "keyword.control.requires.k"}
         },
-  
+
         "end": "(?=(\\b(require|requires|module)\\b))",
-  
+
         "name": "section.require.k",
         "patterns": [
           {"include": "#strings_or_comments"}
@@ -22,7 +22,7 @@
       },
       {
         "comment": "module NAME [attributes] .... endmodule",
-  
+
         "begin": "^\\s*(module)\\s+([^\\s]+)(?=[^a-zA-Z-])\\s*((?:\\[[^\\[\\]]*\\])?)",
         "beginCaptures": {
           "1": {"name": "keyword.module.k"},
@@ -35,16 +35,16 @@
             ]
           }
         },
-  
+
         "end": "\\bendmodule\\b",
         "endCaptures": {
           "0": {
             "name": "keyword.module.k"
           }
         },
-  
+
         "name": "section.module.k",
-  
+
         "patterns": [
           {"include": "#strings_or_comments"},
           {"include": "#sentences"}
@@ -250,21 +250,21 @@
 
       "block_comment": {
         "comment": "/* this is a comment */",
-  
+
         "begin": "/\\*",
         "end": "\\*/",
-  
+
         "name": "comment.block.k"
       },
       "line_comment": {
         "comment": "// this is a comment",
-  
+
         "match": "//.*$",
         "name": "comment.line.k"
       },
       "comments": {
         "comment": "/* comment */ and // comment",
-  
+
         "patterns": [
           {"include": "#line_comment"},
           {"include": "#block_comment"}
@@ -292,7 +292,7 @@
       },
       "attributes": {
         "comment": "[label(\"name\"), hook]",
-  
+
         "begin": "(\\[)(?=[^\\[])",
         "beginCaptures":  {
           "1": {"name": "punctuation.attribute.k"}
@@ -301,7 +301,7 @@
         "endCaptures":  {
           "1": {"name": "punctuation.attribute.k"}
         },
-  
+
         "name": "section.attribute.k",
         "patterns": [
           {"include": "#strings_or_comments"},
@@ -335,13 +335,13 @@
           {"include": "#strings_or_comments"},
           {
             "comment": "[[ left => right ]] <cell> ... </cell>",
-  
+
             "begin": "\\[\\[",
             "beginCaptures":  {
               "0": {"name": "punctuation.function-with-configuration.k"}
             },
             "end": "\\]\\]",
-  
+
             "name": "section.function-with-configuration.k",
             "patterns": [
               {"include": "#rule_patterns"}
@@ -374,16 +374,16 @@
           "1": {"name": "punctuation.definition.tag.k"},
           "2": {"name": "entity.name.tag.k"}
         },
-  
+
         "end": "\\s*(>)",
         "endCaptures": {
           "1": {"name": "punctuation.definition.tag.k"}
         },
-  
+
         "patterns": [
           {
             "comment": "attr=\"value\"",
-  
+
             "match": "([\\w\\d\\-\\_]+)\\s*\\=\\s*(\".+?\")",
             "captures": {
               "1": {"name": "support.tag.attribute.k"},
@@ -394,7 +394,7 @@
       },
       "configuration_closed_tag": {
         "comment": "</tag>",
-  
+
         "match": "(<)\\s*/([\\w\\d\\-\\_]+?)\\s*(>)",
         "captures": {
           "1": {"name": "punctuation.definition.tag.k"},
@@ -555,7 +555,7 @@
         "name": "constant.numeric.k"
       },
       "predefined_sorts": {
-        "match": "\\b(Id|Int|Bool|String|MInt|Float|List|Map|Set|Bag|Token|Lexer|Kresult|KItem|K|KList|KLabel)\\b",
+        "match": "\\b(Id|Int|Bool|String|MInt|Float|List|NeList|Map|Set|Bag|Token|Lexer|Kresult|KItem|K|KList|KLabel)\\b",
         "name": "entity.name.type.k"
       },
       "predefined_symbols": {
