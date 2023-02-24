@@ -9,7 +9,7 @@ All notable changes to the "K framework" extension will be documented in this fi
 - Automatic support for klsp inside Markdown files. Right now you have
   to manually select the Language Mode in the bottom right.
 
-## [0.1.3] - 2023-02-24
+## [0.2.0] - 2023-02-24
 
 - Goto definition for required files, imports and terms inside rules.
 
