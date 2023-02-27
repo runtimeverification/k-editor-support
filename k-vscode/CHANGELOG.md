@@ -4,14 +4,25 @@ All notable changes to the "K framework" extension will be documented in this fi
 
 ## [Unreleased]
 
-- Full Goto definition
-
-- Workspace navigation
-
 - Full error reporting inside the editor
 
 - Automatic support for klsp inside Markdown files. Right now you have
   to manually select the Language Mode in the bottom right.
+
+## [0.2.0] - 2023-02-24
+
+- Goto definition for required files, imports and terms inside rules.
+
+- Find occurances for modules and productions.
+
+- Require K v5.5.103 or higher.
+
+- In editor error reporting for syntax errors
+
+- Selection range. Alt+Shift+LRArrows increases the selection based on the AST.
+
+- Added limited support for workspace mode. Find the first `cache.bin` file in the
+  workspace directory and use the parsing caches for rules.
 
 ## [0.1.2] - 2023-01-30
 
