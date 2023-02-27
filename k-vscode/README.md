@@ -16,17 +16,17 @@ here: https://github.com/runtimeverification/k
   limited diagnostics, go to definition, find references and selection range. Requires K v5.5.103 or higher.
 
 - Code completion. Context sensitive: modules, sorts and syntax.
-![completion](media/completion.gif)
+![completion](https://raw.githubusercontent.com/runtimeverification/k-editor-support/0cf8c8b8bda423894046ab1055e79f164c5a26be/k-vscode/media/completion.gif)
 
 - Go to definition inside the workspace: requires, imports, syntax.
-![gotoDef](media/gotoDef.gif)
+![gotoDef](https://raw.githubusercontent.com/runtimeverification/k-editor-support/0cf8c8b8bda423894046ab1055e79f164c5a26be/k-vscode/media/gotoDef.gif)
 
 - Highlight syntax errors in the editor. The K framework output channel will
   contain diagnostic messages sent by the Language Server.
-![errors](media/errors.gif)
+![errors](https://raw.githubusercontent.com/runtimeverification/k-editor-support/0cf8c8b8bda423894046ab1055e79f164c5a26be/k-vscode/media/errors.gif)
 
 - Selection range. Increase and decrease the selection depending on the AST. Default keys: `Alt+Shift+LRArrows`
-![selection](media/selection.gif)
+![selection](https://raw.githubusercontent.com/runtimeverification/k-editor-support/0cf8c8b8bda423894046ab1055e79f164c5a26be/k-vscode/media/selection.gif)
 
 - Note: Some features require VSCode to be open in workspace mode, and
   have kompiled the definition to be able to access the AST caches. If
