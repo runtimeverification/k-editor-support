@@ -1,7 +1,6 @@
-#on:
-#  push:
-#    tags:
-#      - "v[0-9]+.[0-9]+.[0-9]+"
+on:
+  push:
+    workflow_dispatch:
 
 name: Publish VS Code Extension to Microsoft Marketplace and Open VSX
 jobs:
