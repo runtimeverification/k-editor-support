@@ -1,6 +1,4 @@
-on:
-  push:
-    workflow_dispatch:
+on: workflow_dispatch
 
 name: Publish VS Code Extension to Microsoft Marketplace and Open VSX
 jobs:
