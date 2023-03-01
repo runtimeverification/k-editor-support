@@ -1,7 +1,7 @@
 {
     "name": "k-vscode",
-    "displayName": "K framework",
-    "description": "Syntax highlighting and LSP support for the K framework",
+    "displayName": "K Framework",
+    "description": "Syntax highlighting and LSP support for the K Framework",
     "version": "0.2.2",
     "icon": "k-logo.png",
     "author": {
@@ -28,9 +28,10 @@
             {
                 "id": "kframework",
                 "aliases": [
+                    "k",
+                    "K Framework",
                     "K framework",
-                    "kframework",
-                    "k"
+                    "kframework"
                 ],
                 "extensions": [
                     ".k"

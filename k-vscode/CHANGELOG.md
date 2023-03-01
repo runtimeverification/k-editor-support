@@ -9,6 +9,12 @@ All notable changes to the "K framework" extension will be documented in this fi
 - Automatic support for klsp inside Markdown files. Right now you have
   to manually select the Language Mode in the bottom right.
 
+## [0.2.3] - 2023-03-02
+
+- Small updates to the readme, and make the logo blue.
+
+- Automate the release process using GitHub Actions.
+
 ## [0.2.2] - 2023-02-27
 
 - Goto definition for required files, imports and terms inside rules.
