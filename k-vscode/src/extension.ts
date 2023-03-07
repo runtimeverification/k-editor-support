@@ -21,7 +21,7 @@ export function activate(context: ExtensionContext) {
 	const clientOptions: LanguageClientOptions = {
 		// Register the server for plain text documents
 		documentSelector: [{ scheme: 'file', language: 'kframework' }],
-		outputChannel: window.createOutputChannel("K framework"),
+		outputChannel: window.createOutputChannel("K Framework"),
 		revealOutputChannelOn: RevealOutputChannelOn.Never
 	};
 
