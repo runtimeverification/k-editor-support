@@ -12,7 +12,9 @@ jobs:
         with:
           node-version: 14
       # Run install dependencies
+      - run: pwd ; ls
       - run: cd k-vscode
+      - run: pwd ; ls
       - name: Install dependencies
         run: npm install
       # Run tests
