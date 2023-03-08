@@ -2,7 +2,7 @@
     "name": "k-vscode",
     "displayName": "K Framework",
     "description": "Syntax highlighting and LSP support for the K Framework",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "icon": "k-logo.png",
     "author": {
         "name": "Runtime Verification",

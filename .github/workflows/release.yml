@@ -11,8 +11,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      # Copy contents from k-vscode into cwd so actions can find the files in the expected places
+      - run: pwd ; ls
+      - run: |
+          shopt -s extglob
+          rm -rf !("k-vscode")
+          cp -r k-vscode/* .
+          rm -rf k-vscode
+      - run: pwd ; ls
       # Run install dependencies
-      - run: cd k-vscode
       - name: Install dependencies
         run: npm install
       # Run tests
