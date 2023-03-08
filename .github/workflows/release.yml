@@ -14,6 +14,7 @@ jobs:
       # Copy contents from k-vscode into cwd so actions can find the files in the expected places
       - run: pwd ; ls
       - run: |
+          shopt -s extglob
           rm -rf !("k-vscode")
           cp -r k-vscode/* .
           rm -rf k-vscode
