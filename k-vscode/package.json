@@ -28,8 +28,8 @@
             {
                 "id": "kframework",
                 "aliases": [
-                    "k",
                     "K Framework",
+                    "k",
                     "K framework",
                     "kframework"
                 ],
@@ -81,6 +81,21 @@
                     "description": "Path to the klsp executable."
                 }
             }
+        },
+        "commands": [
+            {
+                "command": "kframework.showKAST",
+                "title": "Show K AST"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "resourceLangId == kframework",
+                    "command": "kframework.showKAST",
+                    "group": "navigation@3"
+                }
+            ]
         }
     },
     "scripts": {
