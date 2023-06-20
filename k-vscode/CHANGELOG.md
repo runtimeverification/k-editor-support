@@ -8,7 +8,7 @@ All notable changes to the "K framework" extension will be documented in this fi
 
 ## [0.2.4] - 2023-6-20
 
-- Automatically associate Markdown files with the K extension. To get hte old
+- Automatically associate Markdown files with the K extension. To get the old
   behavior you can manually select the extension mode in the bottom right, or
   disable this extension.
 
