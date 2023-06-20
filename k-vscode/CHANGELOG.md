@@ -6,8 +6,11 @@ All notable changes to the "K framework" extension will be documented in this fi
 
 - Full error reporting inside the editor
 
-- Automatic support for klsp inside Markdown files. Right now you have
-  to manually select the Language Mode in the bottom right.
+## [0.2.4] - 2023-6-20
+
+- Automatically associate Markdown files with the K extension. To get hte old
+  behavior you can manually select the extension mode in the bottom right, or
+  disable this extension.
 
 ## [0.2.3] - 2023-03-08
 
