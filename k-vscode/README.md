@@ -33,10 +33,9 @@ here: https://github.com/runtimeverification/k
   the location information gets out of sync, you may need to clean and
   rekompile your definition.
 
-- To enable `klsp` in Markdown you have to manually select the
-  Language Mode in the bottom right. To make this the default behavior
-  you can modify the Workspace Settings by adding
-  `"files.associations": { "*.md": "kframework" }` in your `package.json`.
+- Warning: this extension overrides the default extension for Markdown files.
+  To get the old behavior back you will have to manually select Markdown in the bottom right
+  or disable this extension.
 
 ### Contribute
 
