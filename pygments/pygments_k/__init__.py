@@ -6,8 +6,8 @@ __all__ = ["KLexer"]
 
 class KLexer(RegexLexer):
 
-    name = "K"
-    aliases = ["k"]
+    name = "K Framework"
+    aliases = ["k", "kframework"]
 
     tokens = {
         'whitespace': [
