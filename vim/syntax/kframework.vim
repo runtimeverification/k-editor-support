@@ -111,7 +111,7 @@ KHiLink kTodo           Todo
 
 delcommand KHiLink
   
-let b:current_syntax = "kframework"
+let b:current_syntax = "k"
 
 "EOF vim: tw=78:ft=vim:ts=8
 
