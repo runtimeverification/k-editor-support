@@ -1,4 +1,4 @@
-;;; k3-mode.el -- Emacs mode for the K Framework
+;;; k3-mode.el -- Emacs mode for the K Framework -*- lexical-binding: t; -*-
 
 ;; Updated from k-mode.el to support the new keywords in K3
 
@@ -7,6 +7,8 @@
 ;;     (load-library "k3-mode")
 ;;     (add-to-list 'auto-mode-alist '("\\.k$" . k3-mode)) ;; to launch k3-mode for .k files
 
+;;; Commentary:
+;;
 ;; Currently has syntax highlighting for:
 ;;  - keywords
 ;;  - declarations (e.g. ops, syntax, etc)
@@ -17,6 +19,8 @@
 ;; Author: Michael Ilseman
 
 (require 'comint)
+
+;;; Code:
 
 ;;;; Options ;;;;
 (defvar k-dash-comments nil
@@ -120,6 +124,7 @@
 
 ;;;; K Mode ;;;;
 
+;;;###autoload
 (define-derived-mode k3-mode fundamental-mode
   "k3 mode"
   "Major Mode for the K3 framwork"
@@ -139,4 +144,9 @@
   ;;(setq k-keywords nil k-keywords-regex nil)
 )
 
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.k$" . k3-mode))
+
 (provide 'k3-mode)
+
+;;; k3-mode.el ends here
