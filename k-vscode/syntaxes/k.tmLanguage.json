@@ -287,7 +287,7 @@
       },
       "attribute_name": {
         "comment": "Is 'amb' really an attribute?",
-        "match": "\\b(strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro|macro-rec|token|structural|latex|binder|klabel|symbol|hook|unit|function|total|result|assoc|comm|idem|element|format|smtlib|anywhere|context|smt-hook|smt-lemma|owise|label|hybrid|heat|cool|trusted|simplification|priority|concrete|symbol|symbolic|no-evaluators|injective)\\b",
+        "match": "\\b(strict|avoid|prefer|bracket|non-assoc|seqstrict|left|right|macro-rec|macro|alias-rec|alias|token|structural|latex|binder|klabel|symbol|hook|unit|function|total|result|assoc|comm|idem|element|format|smtlib|anywhere|context|smt-hook|smt-lemma|owise|label|hybrid|heat|cool|trusted|simplification|priority|concrete|symbol|symbolic|no-evaluators|injective)\\b",
         "name": "entity.name.attribute.k"
       },
       "attributes": {
